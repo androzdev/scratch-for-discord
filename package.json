@@ -1,0 +1,19 @@
+{
+  "name": "scratch-for-discord",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "electron .",
+    "pkg:mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --ignore=^/builds --icon=assets/icon.icns --prune=true --out=builds",
+    "pkg:win": "electron-packager . scratchfordiscord --overwrite --asar --ignore=^/builds --platform=win32 --arch=ia32 --icon=assets/icon.ico --prune=true --out=builds --version-string.CompanyName=DevSnowflake --version-string.FileDescription=DevSnowflake --version-string.ProductName=\"Scratch For Discord\"",
+    "pkg:linux": "electron-packager . scratchfordiscord --overwrite --asar --ignore=^/builds --platform=linux --arch=x64 --icon=assets/icon.png --prune=true --out=builds"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "discord-rpc": "^3.1.4",
+    "electron": "^11.1.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^15.2.0"
+  }
+}
