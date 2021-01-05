@@ -7,8 +7,6 @@ const startDate = new Date();
 
 let mainWindow;
 
-app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors');
-
 app.on("ready", () => {
     session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
         details.requestHeaders['User-Agent'] = '';
