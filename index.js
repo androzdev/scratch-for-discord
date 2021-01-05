@@ -1,4 +1,4 @@
-const { app, BrowserWindow, shell } = require("electron");
+const { app, BrowserWindow, shell, session } = require("electron");
 const DiscordRPC = require("discord-rpc");
 const CLIENT_ID = "787309462415343667";
 DiscordRPC.register(CLIENT_ID);
@@ -7,14 +7,21 @@ const startDate = new Date();
 
 let mainWindow;
 
+app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors');
+
 app.on("ready", () => {
+    session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+        details.requestHeaders['User-Agent'] = '';
+        callback({ cancel: false, requestHeaders: details.requestHeaders });
+    });
     mainWindow = new BrowserWindow({
         show: false,
         frame: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            enableRemoteModule: true
+            enableRemoteModule: true,
+            webSecurity: false
         }
     });
 
@@ -22,10 +29,6 @@ app.on("ready", () => {
 
     if (mainWindow.maximizable) mainWindow.maximize();
     mainWindow.show();
-
-    mainWindow.webContents.on("devtools-opened", () => {
-        mainWindow.webContents.closeDevTools();
-    });
 
     mainWindow.webContents.on("new-window", (event, url) => {
         event.preventDefault();
