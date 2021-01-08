@@ -67,13 +67,25 @@ function createPresence() {
         const text = title.split("-")[1].trim();
         return text.toLowerCase() === "make your own bot using blocks" ? "Untitled document" : text;
     }
-    
-    rpc.setActivity({
-        details: getTitle(),
-        startTimestamp: startDate,
-        largeImageKey: "large",
-        largeImageText: "Scratch For Discord"
-    });
+    rpc.request('SET_ACTIVITY', {
+        pid: process.pid,
+        activity: {
+            details: getTitle(),
+            timestamps: {
+                start: startDate.getTime()
+            },
+            assets: {
+                large_image : "large",
+                large_text : "Scratch For Discord",
+            },
+            buttons: [
+                {
+                    label: "Download",
+                    url: "https://github.com/Androz2091/scratch-for-discord"
+                }
+            ]
+        }
+    })
 }
 
 rpc.login({ clientId: CLIENT_ID }).catch(console.error);
