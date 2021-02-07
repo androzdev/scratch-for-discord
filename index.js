@@ -1,4 +1,4 @@
-const { app, BrowserWindow, shell } = require("electron");
+const { app, BrowserWindow, shell, session } = require("electron");
 const DiscordRPC = require("discord-rpc");
 const CLIENT_ID = "787309462415343667";
 DiscordRPC.register(CLIENT_ID);
@@ -8,13 +8,18 @@ const startDate = new Date();
 let mainWindow;
 
 app.on("ready", () => {
+    session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+        details.requestHeaders['User-Agent'] = '';
+        callback({ cancel: false, requestHeaders: details.requestHeaders });
+    });
     mainWindow = new BrowserWindow({
         show: false,
         frame: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            enableRemoteModule: true
+            enableRemoteModule: true,
+            webSecurity: false
         }
     });
 
@@ -22,10 +27,6 @@ app.on("ready", () => {
 
     if (mainWindow.maximizable) mainWindow.maximize();
     mainWindow.show();
-
-    mainWindow.webContents.on("devtools-opened", () => {
-        mainWindow.webContents.closeDevTools();
-    });
 
     mainWindow.webContents.on("new-window", (event, url) => {
         event.preventDefault();
@@ -66,13 +67,25 @@ function createPresence() {
         const text = title.split("-")[1].trim();
         return text.toLowerCase() === "make your own bot using blocks" ? "Untitled document" : text;
     }
-    
-    rpc.setActivity({
-        details: getTitle(),
-        startTimestamp: startDate,
-        largeImageKey: "large",
-        largeImageText: "Scratch For Discord"
-    });
+    rpc.request('SET_ACTIVITY', {
+        pid: process.pid,
+        activity: {
+            details: getTitle(),
+            timestamps: {
+                start: startDate.getTime()
+            },
+            assets: {
+                large_image : "large",
+                large_text : "Scratch For Discord",
+            },
+            buttons: [
+                {
+                    label: "Download",
+                    url: "https://github.com/Androz2091/scratch-for-discord"
+                }
+            ]
+        }
+    })
 }
 
 rpc.login({ clientId: CLIENT_ID }).catch(console.error);
