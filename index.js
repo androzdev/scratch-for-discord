@@ -16,10 +16,11 @@ app.on("ready", () => {
         show: false,
         frame: false,
         webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
+            nodeIntegration: false,
+            contextIsolation: true,
+            worldSafeExecuteJavaScript: true,
             enableRemoteModule: true,
-            webSecurity: false
+            webSecurity: true
         }
     });
 
