@@ -1,7 +1,9 @@
 # Scratch For Discord
+
 Desktop app for **[scratch-for-discord](https://scratch-for-discord.netlify.app)**.
 
 # Downloads
+
 ## Windows Installer
 
 **[Download Here](https://github.com/DevSnowflake/scratch-for-discord/releases/download/v1.1.0/scratch-for-discord-windows.exe "Download windows installer")**

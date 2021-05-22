@@ -1,20 +1,40 @@
 {
   "name": "scratch-for-discord",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "index.js",
+  "description": "Build your own discord bot with scratch blocks.",
   "scripts": {
     "dev": "electron .",
+    "format": "prettier --write **/*.{js,ts,yml,yaml,md,json,html,css}",
     "pkg:mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --ignore=^/builds --icon=assets/icon.icns --prune=true --out=builds",
     "pkg:macm1": "electron-packager . --overwrite --platform=darwin --arch=arm64 --ignore=^/builds --icon=assets/icon.icns --prune=true --out=builds",
     "pkg:win": "electron-packager . scratch-for-discord --overwrite --asar --ignore=^/builds --platform=win32 --arch=ia32 --icon=assets/icon.ico --prune=true --out=builds --version-string.CompanyName=DevSnowflake --version-string.FileDescription=DevSnowflake --version-string.ProductName=\"Scratch For Discord\"",
-    "pkg:linux": "electron-packager . scratch-for-discord --overwrite --asar --ignore=^/builds --platform=linux --arch=x64 --icon=assets/icon.png --prune=true --out=builds"
+    "pkg:linux": "electron-packager . scratch-for-discord --overwrite --asar --ignore=^/builds --platform=linux --arch=x64 --icon=assets/icon.png --prune=true --out=builds",
+    "build:win": "rimraf builds/app && electron-builder --win --ia32 --x64 --config=builder.js"
   },
   "license": "MIT",
   "dependencies": {
-    "discord-rpc": "^3.1.4",
-    "electron": "^11.1.0"
+    "discord-rpc": "^3.1.4"
   },
   "devDependencies": {
-    "electron-packager": "^15.2.0"
-  }
+    "electron": "^12.0.9",
+    "electron-builder": "^22.10.5",
+    "electron-packager": "^15.2.0",
+    "prettier": "^2.3.0",
+    "rimraf": "^3.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevSnowflake/scratch-for-discord-app.git"
+  },
+  "keywords": [
+    "scratch",
+    "discord",
+    "bot"
+  ],
+  "author": "Scratch For Discord",
+  "bugs": {
+    "url": "https://github.com/DevSnowflake/scratch-for-discord-app/issues"
+  },
+  "homepage": "https://github.com/DevSnowflake/scratch-for-discord-app#readme"
 }

@@ -9,7 +9,7 @@ let mainWindow;
 
 app.on("ready", () => {
     session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-        details.requestHeaders['User-Agent'] = '';
+        details.requestHeaders["User-Agent"] = "";
         callback({ cancel: false, requestHeaders: details.requestHeaders });
     });
     mainWindow = new BrowserWindow({
@@ -19,8 +19,8 @@ app.on("ready", () => {
             nodeIntegration: true,
             contextIsolation: false,
             enableRemoteModule: true,
-            webSecurity: false
-        }
+            webSecurity: false,
+        },
     });
 
     mainWindow.loadFile(`${__dirname}/html/loader.html`);
@@ -28,11 +28,10 @@ app.on("ready", () => {
     if (mainWindow.maximizable) mainWindow.maximize();
     mainWindow.show();
 
-    mainWindow.webContents.on("new-window", (event, url) => {
-        event.preventDefault();
-        shell.openExternal(url);
+    mainWindow.webContents.setWindowOpenHandler((details) => {
+        shell.openExternal(details.url);
     });
-    
+
     mainWindow.webContents.on("dom-ready", () => {
         if (!mainWindow.webContents.getURL().includes("scratch-for-discord.netlify.app")) {
             mainWindow.loadURL("https://scratch-for-discord.netlify.app");
@@ -66,26 +65,26 @@ function createPresence() {
         if (!title || !title.includes("-")) return "Untitled document";
         const text = title.split("-")[1].trim();
         return text.toLowerCase() === "make your own bot using blocks" ? "Untitled document" : text;
-    }
-    rpc.request('SET_ACTIVITY', {
+    };
+    rpc.request("SET_ACTIVITY", {
         pid: process.pid,
         activity: {
             details: getTitle(),
             timestamps: {
-                start: startDate.getTime()
+                start: startDate.getTime(),
             },
             assets: {
-                large_image : "large",
-                large_text : "Scratch For Discord",
+                large_image: "large",
+                large_text: "Scratch For Discord",
             },
             buttons: [
                 {
                     label: "Download",
-                    url: "https://github.com/Androz2091/scratch-for-discord"
-                }
-            ]
-        }
-    })
+                    url: "https://github.com/Androz2091/scratch-for-discord",
+                },
+            ],
+        },
+    });
 }
 
 rpc.login({ clientId: CLIENT_ID }).catch(console.error);

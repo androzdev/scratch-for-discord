@@ -1,6 +1,6 @@
 :root {
-    --dark: #2C2F33;
-    --light: #FFFFFF
+    --dark: #2c2f33;
+    --light: #ffffff;
 }
 
 body {
@@ -14,7 +14,7 @@ body {
     margin: 0 auto;
     width: auto;
     height: 90vh;
-    padding:  20px;
+    padding: 20px;
     color: var(--light);
 }
 
@@ -35,22 +35,34 @@ body {
     background-color: var(--light);
     border-radius: 50%;
     display: inline-block;
-    -webkit-animation: in-and-out-bubbles 1.20s infinite ease-in-out;
-    animation: in-and-out-bubbles 1.20s infinite ease-in-out;
+    -webkit-animation: in-and-out-bubbles 1.2s infinite ease-in-out;
+    animation: in-and-out-bubbles 1.2s infinite ease-in-out;
 }
 .bubble1 {
     -webkit-animation-delay: -0.35s;
     animation-delay: -0.35s;
 }
 .bubble2 {
-    -webkit-animation-delay: -0.20s;
-    animation-delay: -0.20s; 
+    -webkit-animation-delay: -0.2s;
+    animation-delay: -0.2s;
 }
 @keyframes in-and-out-bubbles {
-    0%,80%,100% { transform: scale(0) }
-    20% { transform: scale(1) }
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+    20% {
+        transform: scale(1);
+    }
 }
 @-webkit-keyframes in-and-out-bubbles {
-    0%,80%,100% { -webkit-transform: scale(0) }
-    20% { -webkit-transform: scale(1) }
+    0%,
+    80%,
+    100% {
+        -webkit-transform: scale(0);
+    }
+    20% {
+        -webkit-transform: scale(1);
+    }
 }
