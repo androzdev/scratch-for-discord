@@ -6,7 +6,7 @@ Desktop app for **[scratch-for-discord](https://scratch-for-discord.netlify.app)
 
 ## Windows Installer
 
-**[Download Here](https://github.com/DevSnowflake/scratch-for-discord/releases/download/v1.1.0/scratch-for-discord-windows.exe "Download windows installer")**
+**[Download Here](https://github.com/DevSnowflake/scratch-for-discord-app/releases/download/v1.1.0/scratch-for-discord-win32-ia32.exe "Download windows installer")**
 
 ## MacOS App
 
@@ -18,4 +18,4 @@ Desktop app for **[scratch-for-discord](https://scratch-for-discord.netlify.app)
 
 ## Linux
 
-**[Download Here](https://github.com/DevSnowflake/scratch-for-discord-app/releases/download/v1.1.0/scratch-for-discord-linux-x64.rar "Download for Linux")**
+**[Download Here](https://github.com/DevSnowflake/scratch-for-discord-app/releases/download/v1.1.0/scratch-for-discord-linux-x64.zip "Download for Linux")**
