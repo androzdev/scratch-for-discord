@@ -6,12 +6,8 @@
   "scripts": {
     "dev": "electron .",
     "format": "prettier --write **/*.{js,ts,yml,yaml,md,json,html,css}",
-    "pkg:mac": "npx electron-packager . --overwrite --platform=darwin --arch=x64 --ignore=^/builds --icon=assets/icon.icns --prune=true --out=builds/mac",
-    "pkg:macm1": "npx electron-packager . --overwrite --platform=darwin --arch=arm64 --ignore=^/builds --icon=assets/icon.icns --prune=true --out=builds/macm1",
-    "pkg:win": "npx electron-packager . scratch-for-discord --overwrite --asar --ignore=^/builds --platform=win32 --arch=ia32 --icon=assets/icon.ico --prune=true --out=builds/win --version-string.CompanyName=DevSnowflake --version-string.FileDescription=DevSnowflake --version-string.ProductName=\"Scratch For Discord\"",
-    "pkg:linux": "npx electron-packager . scratch-for-discord --overwrite --asar --ignore=^/builds --platform=linux --arch=x64 --icon=assets/icon.png --prune=true --out=builds/linux",
-    
-    "build:win": "rimraf builds/app && electron-builder --win --ia32 --x64 --config=builder.js"
+    "build:publish": "yarn build:app --publish=always",
+    "build:app": "rimraf builds/app && electron-builder --win --linux --mac --ia32 --x64 --config=builder.js"
   },
   "license": "MIT",
   "dependencies": {

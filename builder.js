@@ -10,11 +10,16 @@ module.exports = {
     extraMetadata: {
         main: "index.js",
     },
-    target: "nsis",
-    publish: [],
+    publish: ["github"],
+    win: {
+        target: "nsis",
+    },
     nsis: {
         oneClick: false,
         allowToChangeInstallationDirectory: true,
+    },
+    linux: {
+        target: "AppImage",
     },
     generateUpdatesFilesForAllChannels: true,
 };
