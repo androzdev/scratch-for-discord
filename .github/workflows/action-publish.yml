@@ -21,7 +21,7 @@ jobs:
               run: yarn --dev
 
             - name: Publish
-              run: yarn electron:publish -w
+              run: yarn app:publish -w
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -39,6 +39,6 @@ jobs:
               run: yarn --dev
 
             - name: Publish
-              run: yarn electron:publish -l
+              run: yarn app:publish -l
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

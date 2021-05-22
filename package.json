@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "electron .",
     "format": "prettier --write **/*.{js,ts,yml,yaml,md,json,html,css}",
-    "build:publish": "yarn build:app --publish=always",
-    "build:app": "rimraf builds/app && electron-builder --win --linux --mac --ia32 --x64 --config=builder.js"
+    "app:publish": "yarn build:app --publish=always",
+    "build:app": "rimraf builds/app && electron-builder --ia32 --x64 --config=builder.js"
   },
   "license": "MIT",
   "dependencies": {
