@@ -21,5 +21,9 @@ module.exports = {
     linux: {
         target: "AppImage"
     },
+    mac: {
+        target: "dmg",
+        category: "public.app-category.utilities"
+    },
     generateUpdatesFilesForAllChannels: true
 };
