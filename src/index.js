@@ -47,15 +47,17 @@ app.on("ready", async () => {
     });
 
     mainWindow.on("close", async (ev) => {
-        const choice = dialog.showMessageBoxSync(mainWindow, {
+        ev.preventDefault();
+
+        const response = await dialog.showMessageBox(mainWindow, {
             type: "question",
             buttons: ["Yes", "No"],
             title: "Confirm",
-            message: "Do you really want to quit Scratch For Discord?",
-            icon: `${__dirname}/assets/icon.png`
+            message: "Do you really want to quit Scratch For Discord?"
         });
 
-        if (choice === 1) return ev.preventDefault();
+        if (response.response === 1) return;
+        try { mainWindow.destroy(); } catch(e) {}
     });
 
     mainWindow.webContents.on("dom-ready", () => {
