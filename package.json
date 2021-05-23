@@ -1,7 +1,7 @@
 {
   "name": "scratch-for-discord",
   "version": "1.1.2",
-  "main": "index.js",
+  "main": "src/index.js",
   "description": "Build your own discord bot with scratch blocks.",
   "scripts": {
     "dev": "electron .",
@@ -17,6 +17,7 @@
     "electron": "^12.0.9",
     "electron-builder": "^22.10.5",
     "electron-packager": "^15.2.0",
+    "electron-updater": "^4.3.9",
     "prettier": "^2.3.0",
     "rimraf": "^3.0.2"
   },

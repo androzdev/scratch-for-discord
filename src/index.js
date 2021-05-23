@@ -1,22 +1,26 @@
 const { app, BrowserWindow, shell, session } = require("electron");
-const DiscordRPC = require("discord-rpc");
-const CLIENT_ID = "787309462415343667";
-DiscordRPC.register(CLIENT_ID);
-const rpc = new DiscordRPC.Client({ transport: "ipc" });
 const startDate = new Date();
+const Updater = require("./updates/window");
+const updater = new Updater();
+const rpc = require("./RPC");
 let version, mainWindow;
 
 try {
-    version = require(`${__dirname}/package.json`).version;
-} catch(e) {
+    version = require(`${__dirname}/../package.json`).version;
+} catch (e) {
     version = "1.1.2";
 }
 
-app.on("ready", () => {
+app.on("ready", async () => {
+    updater.create();
+    const proc = await updater.init();
+    if (!proc) return updater.close();
+
     session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
         details.requestHeaders["User-Agent"] = "";
         callback({ cancel: false, requestHeaders: details.requestHeaders });
     });
+
     mainWindow = new BrowserWindow({
         show: false,
         frame: false,
@@ -25,14 +29,18 @@ app.on("ready", () => {
             contextIsolation: true,
             enableRemoteModule: true,
             webSecurity: false,
-            preload: `${__dirname}/src/preload.js`
+            preload: `${__dirname}/preload.js`
         }
     });
 
-    mainWindow.loadFile(`${__dirname}/src/loader.html`);
+    mainWindow.loadFile(`${__dirname}/public/loader.html`);
 
     if (mainWindow.maximizable) mainWindow.maximize();
-    mainWindow.show();
+
+    mainWindow.on("ready-to-show", () => {
+        mainWindow.show();
+        updater.close();
+    });
 
     mainWindow.webContents.setWindowOpenHandler((details) => {
         shell.openExternal(details.url);
@@ -91,8 +99,6 @@ function createPresence() {
         }
     });
 }
-
-rpc.login({ clientId: CLIENT_ID }).catch(console.error);
 
 app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {
