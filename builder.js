@@ -5,21 +5,21 @@ module.exports = {
     files: ["index.js", "assets/**/*", "html/**/*", "node_modules/**/*", "package.json"],
     directories: {
         buildResources: "assets",
-        output: "builds/app",
+        output: "builds/app"
     },
     extraMetadata: {
-        main: "index.js",
+        main: "index.js"
     },
     publish: ["github"],
     win: {
-        target: "nsis",
+        target: "nsis"
     },
     nsis: {
         oneClick: false,
-        allowToChangeInstallationDirectory: true,
+        allowToChangeInstallationDirectory: true
     },
     linux: {
-        target: "AppImage",
+        target: "AppImage"
     },
-    generateUpdatesFilesForAllChannels: true,
+    generateUpdatesFilesForAllChannels: true
 };

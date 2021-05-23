@@ -4,8 +4,13 @@ const CLIENT_ID = "787309462415343667";
 DiscordRPC.register(CLIENT_ID);
 const rpc = new DiscordRPC.Client({ transport: "ipc" });
 const startDate = new Date();
+let version, mainWindow;
 
-let mainWindow;
+try {
+    version = require(`${__dirname}/package.json`).version;
+} catch(e) {
+    version = "1.1.2";
+}
 
 app.on("ready", () => {
     session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
@@ -16,14 +21,15 @@ app.on("ready", () => {
         show: false,
         frame: false,
         webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
+            nodeIntegration: false,
+            contextIsolation: true,
             enableRemoteModule: true,
             webSecurity: false,
-        },
+            preload: `${__dirname}/src/preload.js`
+        }
     });
 
-    mainWindow.loadFile(`${__dirname}/html/loader.html`);
+    mainWindow.loadFile(`${__dirname}/src/loader.html`);
 
     if (mainWindow.maximizable) mainWindow.maximize();
     mainWindow.show();
@@ -37,18 +43,17 @@ app.on("ready", () => {
             mainWindow.loadURL("https://scratch-for-discord.netlify.app");
         } else {
             mainWindow.webContents.executeJavaScript(`
-                const remote = require("electron").remote;
+                if (window.__scratch__) {
+                    const y = document.createElement("li");
+                    y.classList.add("nav-item");
+                    y.innerHTML = '<a href="#" class="nav-link" id="nav-close-window">Exit</a>';
+                    document.querySelector("ul[class='navbar-nav']").appendChild(y);
 
-                const x = document.createElement("li");
-                x.classList.add("nav-item");
-                x.innerHTML = '<a href="#" class="nav-link" id="nav-close-window">Exit</a>';
-
-                document.querySelector("ul[class='navbar-nav']").appendChild(x);
-
-                document.getElementById("nav-close-window").addEventListener("click", (e) => {
-                    e.preventDefault();
-                    return remote.getCurrentWindow().close();
-                });
+                    document.getElementById("nav-close-window").addEventListener("click", (e) => {
+                        e.preventDefault();
+                        return window.__scratch__.closeWindow();
+                    });
+                }
             `);
         }
     });
@@ -71,19 +76,19 @@ function createPresence() {
         activity: {
             details: getTitle(),
             timestamps: {
-                start: startDate.getTime(),
+                start: startDate.getTime()
             },
             assets: {
                 large_image: "large",
-                large_text: "Scratch For Discord",
+                large_text: `Scratch For Discord - v${version}`
             },
             buttons: [
                 {
                     label: "Download",
-                    url: "https://github.com/Androz2091/scratch-for-discord",
-                },
-            ],
-        },
+                    url: "https://github.com/Androz2091/scratch-for-discord"
+                }
+            ]
+        }
     });
 }
 
