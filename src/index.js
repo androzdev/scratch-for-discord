@@ -57,7 +57,9 @@ app.on("ready", async () => {
         });
 
         if (response.response === 1) return;
-        try { mainWindow.destroy(); } catch(e) {}
+        try {
+            mainWindow.destroy();
+        } catch (e) {}
     });
 
     mainWindow.webContents.on("dom-ready", () => {

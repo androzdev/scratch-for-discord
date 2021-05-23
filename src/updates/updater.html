@@ -25,6 +25,7 @@
             --light: white;
             --dark: #18181b;
             --special: #ffc61b;
+            --gray: #99aab5;
         }
 
         * {
@@ -37,6 +38,34 @@
         main {
             height: 100%;
             width: 100%;
+        }
+
+        progress {
+            height: 7px;
+            background-color: var(--gray);
+            appearance: none;
+            color: var(--special) !important;
+            border-radius: 10px;
+        }
+
+        progress::-webkit-progress-bar {
+            height: 7px;
+            background-color: var(--gray);
+            border-radius: 10px;
+        }
+
+        progress::-moz-progress-bar {
+            height: 7px;
+            -moz-appearance: none;
+            background-color: var(--special) !important;
+            border-radius: 10px;
+        }
+
+        progress::-webkit-progress-value {
+            height: 7px;
+            -webkit-appearance: none;
+            background-color: var(--special) !important;
+            border-radius: 10px;
         }
 
         main {

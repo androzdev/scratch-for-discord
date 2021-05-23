@@ -1,6 +1,6 @@
 {
   "name": "scratch-for-discord",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "main": "src/index.js",
   "description": "Build your own discord bot with scratch blocks.",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DevSnowflake/scratch-for-discord-app.git"
+    "url": "git+https://github.com/scratch-for-discord/scratch-for-discord-app.git"
   },
   "keywords": [
     "scratch",
@@ -32,7 +32,7 @@
   ],
   "author": "Scratch For Discord",
   "bugs": {
-    "url": "https://github.com/DevSnowflake/scratch-for-discord-app/issues"
+    "url": "https://github.com/scratch-for-discord/scratch-for-discord-app/issues"
   },
-  "homepage": "https://github.com/DevSnowflake/scratch-for-discord-app#readme"
+  "homepage": "https://github.com/scratch-for-discord/scratch-for-discord-app#readme"
 }

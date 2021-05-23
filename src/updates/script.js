@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     ipcRenderer.on("download-progress", (e, progress) => {
-        let perc = Math.round((progress.current / progress.total) * 100);
+        let perc = Math.round((progress.current / progress.total) * 100) || 0;
         if (perc < 0) perc = 0;
         else if (perc > 100) perc = 100;
 
