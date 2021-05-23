@@ -10,6 +10,7 @@ class Updater {
         this.updater.autoDownload = false;
         this.updater.channel = "latest";
         this.updater.allowDowngrade = false;
+        this.updater.autoInstallOnAppQuit = true;
 
         if (isDev) {
             this.updater.updateConfigPath = `${__dirname}/dev-mock-update.yml`;
