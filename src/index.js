@@ -1,9 +1,11 @@
-const { app, BrowserWindow, shell, session, dialog } = require("electron");
+const { app, BrowserWindow, shell, session, dialog, Tray, Menu } = require("electron");
 const startDate = new Date();
 const Updater = require("./updates/window");
 const updater = new Updater();
 const rpc = require("./RPC");
-let version, mainWindow;
+let version,
+    mainWindow,
+    tray = null;
 
 try {
     version = require(`${__dirname}/../package.json`).version;
@@ -41,6 +43,32 @@ app.on("ready", async () => {
         mainWindow.show();
         updater.close();
     });
+
+    tray = new Tray(`${__dirname}/assets/icon.png`);
+    const contextMenu = Menu.buildFromTemplate([
+        {
+            label: "GitHub",
+            type: "normal",
+            click: () => shell.openExternal("https://github.com/Androz2091/scratch-for-discord")
+        },
+        {
+            label: "Check for updates",
+            type: "normal",
+            click: () => {
+                app.relaunch();
+                app.quit();
+            }
+        },
+        {
+            label: "Quit App",
+            type: "normal",
+            click: () => {
+                mainWindow.destroy();
+            }
+        }
+    ]);
+    tray.setToolTip("Scratch For Discord");
+    tray.setContextMenu(contextMenu);
 
     mainWindow.webContents.setWindowOpenHandler((details) => {
         shell.openExternal(details.url);
