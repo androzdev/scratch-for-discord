@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (perc < 0) perc = 0;
         else if (perc > 100) perc = 100;
 
-        state.innerHTML = `Downloading Update (${perc}%)<br><progress max="100" value="${perc}"></progress>`;
+        state.innerHTML = `<b>Downloading Update (${perc}%)</b><br><progress max="100" value="${perc}"></progress>`;
     });
 
     ipcRenderer.on("update-downloaded", (e) => {
