@@ -1,4 +1,4 @@
-const { app, BrowserWindow, shell, session } = require("electron");
+const { app, BrowserWindow, shell, session, dialog } = require("electron");
 const startDate = new Date();
 const Updater = require("./updates/window");
 const updater = new Updater();
@@ -46,6 +46,18 @@ app.on("ready", async () => {
         shell.openExternal(details.url);
     });
 
+    mainWindow.on("close", async (ev) => {
+        const choice = dialog.showMessageBoxSync(mainWindow, {
+            type: "question",
+            buttons: ["Yes", "No"],
+            title: "Confirm",
+            message: "Do you really want to quit Scratch For Discord?",
+            icon: `${__dirname}/assets/icon.png`
+        });
+
+        if (choice === 1) return ev.preventDefault();
+    });
+
     mainWindow.webContents.on("dom-ready", () => {
         if (!mainWindow.webContents.getURL().includes("scratch-for-discord.netlify.app")) {
             mainWindow.loadURL("https://scratch-for-discord.netlify.app");
@@ -75,7 +87,7 @@ rpc.on("ready", () => {
 function createPresence() {
     const getTitle = () => {
         const title = mainWindow && mainWindow.webContents.getTitle();
-        if (!title || !title.includes("-")) return "Untitled document";
+        if (!title || !title.includes("-")) return "Starting...";
         const text = title.split("-")[1].trim();
         return text.toLowerCase() === "make your own bot using blocks" ? "Untitled document" : text;
     };

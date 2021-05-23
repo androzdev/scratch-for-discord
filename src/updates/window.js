@@ -25,11 +25,16 @@ class Updater {
                 contextIsolation: true,
                 nodeIntegration: false,
                 enableRemoteModule: true,
-                preload: `${__dirname}/script.js`
+                preload: `${__dirname}/script.js`,
+                devTools: false
             },
             frame: false,
             transparent: true,
             icon: `${__dirname}/../assets/icon.png`
+        });
+
+        this.win.webContents.on("devtools-opened", () => {
+            this.win.webContents.closeDevTools();
         });
 
         this.win.loadFile(`${__dirname}/updater.html`);

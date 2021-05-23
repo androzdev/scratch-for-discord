@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let perc = Math.round((progress.current / progress.total) * 100);
         if (perc < 0) perc = 0;
         else if (perc > 100) perc = 100;
-        
+
         state.innerHTML = `Downloading Update (${perc}%)<br><progress max="100" value="${perc}"></progress>`;
     });
 
