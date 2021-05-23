@@ -83,7 +83,9 @@ app.on("ready", async () => {
 
 rpc.on("ready", () => {
     createPresence();
-    setInterval(createPresence, 15000);
+
+    // https://discord.com/developers/docs/topics/gateway#activity-object-example-activity-with-rich-presence
+    setInterval(createPresence, 5000);
 });
 
 function createPresence() {
