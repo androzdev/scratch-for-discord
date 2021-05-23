@@ -1,13 +1,13 @@
 {
   "name": "scratch-for-discord",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "main": "src/index.js",
   "description": "Build your own discord bot with scratch blocks.",
   "scripts": {
     "dev": "electron .",
     "format": "prettier --write **/*.{js,ts,yml,yaml,md,json,html,css}",
     "app:publish": "yarn build:app --publish=always",
-    "build:app": "rimraf builds/app && electron-builder --ia32 --x64 --config=builder.js"
+    "build:app": "rimraf builds/app && electron-builder --x64 --config=builder.js"
   },
   "license": "MIT",
   "dependencies": {
