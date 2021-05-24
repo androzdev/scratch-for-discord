@@ -47,6 +47,11 @@ app.on("ready", async () => {
     tray = new Tray(`${__dirname}/assets/icon.png`);
     const contextMenu = Menu.buildFromTemplate([
         {
+            label: "Discord Server",
+            type: "normal",
+            click: () => shell.openExternal("https://androz2091.fr/discord")
+        },
+        {
             label: "GitHub",
             type: "normal",
             click: () => shell.openExternal("https://github.com/Androz2091/scratch-for-discord")
@@ -73,6 +78,8 @@ app.on("ready", async () => {
     mainWindow.webContents.setWindowOpenHandler((details) => {
         shell.openExternal(details.url);
     });
+
+    mainWindow.on("page-title-updated", createPresence);
 
     mainWindow.on("close", async (ev) => {
         ev.preventDefault();
@@ -111,12 +118,7 @@ app.on("ready", async () => {
     });
 });
 
-rpc.on("ready", () => {
-    createPresence();
-
-    // https://discord.com/developers/docs/topics/gateway#activity-object-example-activity-with-rich-presence
-    setInterval(createPresence, 5000);
-});
+rpc.on("ready", () => createPresence());
 
 function createPresence() {
     const getTitle = () => {
@@ -125,25 +127,32 @@ function createPresence() {
         const text = title.split("-")[1].trim();
         return text.toLowerCase() === "make your own bot using blocks" ? "Untitled document" : text;
     };
-    rpc.request("SET_ACTIVITY", {
-        pid: process.pid,
-        activity: {
-            details: getTitle(),
-            timestamps: {
-                start: startDate.getTime()
-            },
-            assets: {
-                large_image: "large",
-                large_text: `Scratch For Discord - v${version}`
-            },
-            buttons: [
-                {
-                    label: "Download",
-                    url: "https://github.com/Androz2091/scratch-for-discord"
+
+    const currentTitle = getTitle();
+
+    if (currentTitle.length >= 2) {
+        setTimeout(() => {
+            rpc.request("SET_ACTIVITY", {
+                pid: process.pid,
+                activity: {
+                    details: currentTitle,
+                    timestamps: {
+                        start: startDate.getTime()
+                    },
+                    assets: {
+                        large_image: "large",
+                        large_text: `Scratch For Discord - v${version}`
+                    },
+                    buttons: [
+                        {
+                            label: "Download",
+                            url: "https://github.com/Androz2091/scratch-for-discord"
+                        }
+                    ]
                 }
-            ]
-        }
-    });
+            });
+        }, 1500);
+    }
 }
 
 app.on("window-all-closed", () => {
