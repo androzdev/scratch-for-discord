@@ -103,12 +103,22 @@ app.on("ready", async () => {
         } else {
             mainWindow.webContents.executeJavaScript(`
                 if (window.__scratch__) {
+                    const z = document.createElement("li");
+                    z.classList.add("nav-item");
+                    z.innerHTML = '<a href="#" class="nav-link" id="nav-close-window">Discord</a>';
+                    document.querySelector("ul[class='navbar-nav']").appendChild(z);
+
+                    z.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        return window.__scratch__.openExternal(window.__scratch__.DISCORD_INVITE);
+                    });
+
                     const y = document.createElement("li");
                     y.classList.add("nav-item");
                     y.innerHTML = '<a href="#" class="nav-link" id="nav-close-window">Exit</a>';
                     document.querySelector("ul[class='navbar-nav']").appendChild(y);
 
-                    document.getElementById("nav-close-window").addEventListener("click", (e) => {
+                    y.addEventListener("click", (e) => {
                         e.preventDefault();
                         return window.__scratch__.closeWindow();
                     });
