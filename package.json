@@ -1,6 +1,6 @@
 {
   "name": "scratch-for-discord",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "src/index.js",
   "description": "Build your own discord bot with scratch blocks.",
   "scripts": {
