@@ -1,10 +1,22 @@
-const { contextBridge, remote: ElectronRemote, ipcRenderer, shell } = require("electron");
+const { ipcRenderer, shell, remote: ElectronRemote } = require("electron");
 
-contextBridge.exposeInMainWorld("__scratch__", {
-    remote: ElectronRemote,
-    closeWindow: () => ElectronRemote.getCurrentWindow().closable && ElectronRemote.getCurrentWindow().close(),
-    appVersion: require(`${__dirname}/../package.json`).version || "1.1.2",
-    ipc: ipcRenderer,
-    openExternal: (u) => shell.openExternal(u),
-    DISCORD_INVITE: "https://androz2091.fr/discord"
+Object.defineProperties(window, {
+    __scratch__: {
+        value: {
+            remote: ElectronRemote,
+            closeWindow: () => ElectronRemote.getCurrentWindow().closable && ElectronRemote.getCurrentWindow().close(),
+            appVersion: require(`${__dirname}/../package.json`).version || "1.1.2",
+            ipc: ipcRenderer,
+            openExternal: (u) => shell.openExternal(u),
+            DISCORD_INVITE: "https://androz2091.fr/discord",
+            Discord: require("discord.js")
+        }
+    }
+});
+
+window.document.addEventListener("keyup", (event) => {
+    if (event.ctrlKey && event.keyCode === 192) {
+        event.preventDefault();
+        window.__scratch__.remote.getCurrentWindow().webContents.toggleDevTools();
+    }
 });

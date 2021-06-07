@@ -27,8 +27,8 @@ app.on("ready", async () => {
         show: false,
         frame: false,
         webPreferences: {
-            nodeIntegration: false,
-            contextIsolation: true,
+            nodeIntegration: true,
+            contextIsolation: false,
             enableRemoteModule: true,
             webSecurity: false,
             preload: `${__dirname}/preload.js`
@@ -62,6 +62,19 @@ app.on("ready", async () => {
             click: () => {
                 app.relaunch();
                 app.quit();
+            }
+        },
+        {
+            label: "Version",
+            type: "normal",
+            click: () => {
+                const info = `Scratch For Discord: ${version || "1.0.0"}\nElectron: ${process.versions.electron}\nv8: ${process.versions.v8}\nNode: ${process.versions.node}\nChromium: ${process.versions.chrome}\nDiscord.js: ${require("discord.js").version}`;
+
+                dialog.showMessageBox(mainWindow, {
+                    type: "none",
+                    message: info,
+                    title: "Scratch For Discord - App Version"
+                });
             }
         },
         {
@@ -103,6 +116,8 @@ app.on("ready", async () => {
         } else {
             mainWindow.webContents.executeJavaScript(`
                 if (window.__scratch__) {
+                    window.Discord = window.__scratch__.Discord;
+                    window.DiscordJS = window.__scratch__.Discord;
                     const z = document.createElement("li");
                     z.classList.add("nav-item");
                     z.innerHTML = '<a href="#" class="nav-link" id="nav-close-window">Discord</a>';
