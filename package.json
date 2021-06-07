@@ -16,9 +16,9 @@
     "electron-updater": "^4.3.9"
   },
   "devDependencies": {
-    "electron": "^13.0.1",
+    "electron": "^13.1.1",
     "electron-builder": "^22.10.5",
-    "prettier": "^2.3.0",
+    "prettier": "^2.3.1",
     "rimraf": "^3.0.2"
   },
   "repository": {
