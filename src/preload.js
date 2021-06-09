@@ -6,7 +6,10 @@ Object.defineProperties(window, {
             remote: ElectronRemote,
             closeWindow: () => ElectronRemote.getCurrentWindow().closable && ElectronRemote.getCurrentWindow().close(),
             appVersion: require(`${__dirname}/../package.json`).version || "1.1.2",
-            ipc: ipcRenderer,
+            ipc: {
+                send: (...d) => ipcRenderer.send(...d),
+                on: (...d) => ipcRenderer.on(...d)
+            },
             openExternal: (u) => shell.openExternal(u),
             DISCORD_INVITE: "https://androz2091.fr/discord",
             Discord: require("discord.js")
