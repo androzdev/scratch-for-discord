@@ -8,6 +8,7 @@
         <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src https://fonts.gstatic.com/; img-src *;" />
 
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="./style.css" />
     </head>
     <body>
         <main>
@@ -17,55 +18,4 @@
             <p class="dull" id="status" style="margin-top: 0.4rem; font-size: 0.9rem">Loading...</p>
         </main>
     </body>
-
-    <style>
-        :root {
-            --light: white;
-            --dark: #18181b;
-            --special: #ffc61b;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        html,
-        body,
-        main {
-            height: 100%;
-            width: 100%;
-        }
-
-        main {
-            font-family: "Poppins", sans-serif;
-            background-color: var(--dark);
-            color: var(--light);
-            text-align: center;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        main > * {
-            max-width: 80%;
-        }
-
-        .special {
-            color: var(--special);
-        }
-
-        .dull {
-            opacity: 0.6;
-        }
-
-        .center {
-            margin-left: auto;
-            margin-right: auto;
-        }
-    </style>
 </html>
