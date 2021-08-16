@@ -1,7 +1,5 @@
 const { ipcMain, BrowserWindow, dialog } = require("electron");
 const { readdir, readFile } = require("fs").promises;
-const { existsSync, statSync } = require("fs");
-const db = require("../storage/database");
 const isOnline = require("is-online");
 const WebServer = require("../server/WebServer");
 const ws = new WebServer();

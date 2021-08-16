@@ -34,7 +34,8 @@ class RichPresence {
     }
 
     setActivity(title) {
-            this.client.setActivity({
+        this.client
+            .setActivity({
                 details: title || "Scratch For Discord",
                 timestamps: {
                     start: this.startedAt
@@ -49,7 +50,8 @@ class RichPresence {
                         url: "https://androz2091.github.io/scratch-for-discord/download/index.html"
                     }
                 ]
-            }).catch(() => {});
+            })
+            .catch(() => {});
     }
 
     logout() {

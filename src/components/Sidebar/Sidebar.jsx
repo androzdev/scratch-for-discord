@@ -9,7 +9,7 @@ export default function Sidebar() {
         <div className="bg-gray-900 w-20 border-r-2 border-gray-600">
             <div>
                 <Link to="/">
-                    <img src={ICON} className="h-14 w-14 mx-auto mt-3 cursor-pointer p-1 border-b-2 border-gray-600" alt="logo" draggable="false" />
+                    <img src={ICON} className="h-14 w-14 mx-auto mt-3 cursor-pointer p-1 border-b-2 border-gray-400" alt="logo" draggable="false" />
                 </Link>
             </div>
             <div>
