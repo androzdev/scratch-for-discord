@@ -1,9 +1,15 @@
-const { app, BrowserWindow, shell, dialog, session } = require("electron");
+const { app, BrowserWindow, shell, dialog, session, Menu } = require("electron");
 const isDev = require("electron-is-dev");
 const path = require("path");
+const Updater = require("./updates/window");
+const updater = new Updater();
 require("./core/storage/database");
 
-function createWindow() {
+async function createWindow() {
+    updater.create();
+    const proc = await updater.init();
+    if (!proc) return updater.close();
+
     session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
         details.requestHeaders["User-Agent"] = "";
         callback({ cancel: false, requestHeaders: details.requestHeaders });
@@ -24,12 +30,16 @@ function createWindow() {
         icon: `file://${path.join(__dirname, "/assets/icon.png")}`
     });
 
+    const mockedMenu = Menu.buildFromTemplate([]);
+    Menu.setApplicationMenu(mockedMenu);
+
     const startUrl = isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "..", "build", "index.html")}`;
     mainWindow.loadURL(startUrl);
     if (isDev) mainWindow.webContents.openDevTools();
 
     mainWindow.once("ready-to-show", () => {
         mainWindow.show();
+        updater.close();
         if (mainWindow.maximizable) mainWindow.maximize();
         // load extensions
         new (require("./core/ExtensionsLoader"))(mainWindow);
