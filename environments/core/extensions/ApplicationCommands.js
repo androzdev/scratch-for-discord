@@ -92,6 +92,11 @@ module.exports = (mainWindow) => {
     ipcMain.on("toggleRPC", (event, enable) => {
         const mode = Boolean(enable);
         db.set("rpcEnabled", mode);
+        if (mode) {
+            ipcMain.emit("setActivity");
+        } else {
+            ipcMain.emit("destroyRPC");
+        }
     });
 
     ipcMain.on("setServer", (event, url) => {

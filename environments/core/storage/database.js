@@ -19,6 +19,7 @@ const store = new Store({
     fileExtension: "s4d.dat",
     name: ".scratchfordiscord.config",
     encryptionKey: Buffer.from("2dc31b6372af548e4272a1b76dd641bc934077e9b641c277a6e7c66ec41eb9d6", "hex"),
+    accessPropertiesByDotNotation: true,
     schema: {
         recentWorkspace: {
             type: "array",

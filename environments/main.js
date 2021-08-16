@@ -43,6 +43,8 @@ async function createWindow() {
         if (mainWindow.maximizable) mainWindow.maximize();
         // load extensions
         new (require("./core/ExtensionsLoader"))(mainWindow);
+        const rpc = require("./core/rpc/RPC");
+        rpc.login().then(() => rpc.setActivity());
     });
 
     mainWindow.webContents.setWindowOpenHandler((handler) => {
