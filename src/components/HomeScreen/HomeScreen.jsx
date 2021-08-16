@@ -3,8 +3,8 @@ import Card from "./Card";
 import { faFolder, faClock } from "@fortawesome/free-solid-svg-icons";
 import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Logo from "../../assets/icon.png";
 import { useHistory } from "react-router-dom";
+import ICON from "../../assets/icon.png";
 
 export default function HomeScreen() {
     const getTime = () => {
@@ -66,7 +66,7 @@ export default function HomeScreen() {
                     </div>
                     <div className="text-white border-l-2 border-gray-500 my-auto">
                         <div className="ml-5">
-                            <img src={Logo} srcSet={Logo} alt="logo" className="h-32 w-32" draggable="false" />
+                            <img src={ICON} srcSet={ICON} alt="logo" className="h-32 w-32" draggable="false" />
                             <h1 className="text-5xl">Scratch For Discord</h1>
                             <p className="text-2xl opacity-70">v{window.ScratchNative?.version ?? "1.0.0"}</p>
                             <p className="text-2xl opacity-70">
