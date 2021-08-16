@@ -26,7 +26,7 @@ function createWindow() {
 
     const startUrl = isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "..", "build", "index.html")}`;
     mainWindow.loadURL(startUrl);
-    mainWindow.webContents.openDevTools();
+    if (isDev) mainWindow.webContents.openDevTools();
 
     mainWindow.once("ready-to-show", () => {
         mainWindow.show();
