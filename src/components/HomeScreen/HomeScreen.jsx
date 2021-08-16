@@ -84,9 +84,11 @@ export default function HomeScreen() {
                             <h1 className="text-white opacity-90 text-1xl">No recent workspaces detected!</h1>
                         ) : (
                             workspaces.map((m, i) => (
-                                <h1 className="text-blue-500 hover:text-blue-600 text-xl cursor-pointer" key={i} onClick={() => routeHistory.push(`/workspace?name=${m}`)}>
-                                    {m}
-                                </h1>
+                                <div key={i}>
+                                    <h1 className="text-blurple-500 hover:text-blurple-600 text-xl cursor-pointer" onClick={() => routeHistory.push(`/workspace?name=${m}`)}>
+                                        {m}
+                                    </h1>
+                                </div>
                             ))
                         )}
                     </div>

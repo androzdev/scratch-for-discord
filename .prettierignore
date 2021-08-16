@@ -1,4 +1,4 @@
 *.json
 src/assets
 *.png
-core/server/s4d
+environments/core/server/s4d

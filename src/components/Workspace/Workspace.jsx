@@ -26,12 +26,12 @@ export default class Workspace extends Component {
                 source: `http://localhost:${port}/index.html`
             });
         });
-        
+
         window.ScratchNative?.onceMessage("connection", (ev, status) => {
             this.setState({
                 ready: status
             });
-            
+
             if (!status) window.ScratchNative?.sendMessage("connectFallbackServer");
         });
 
