@@ -19,7 +19,8 @@ module.exports = {
         "!README.md",
         "!tailwind.config.js",
         "!yarn.lock",
-        "!package-lock.json"
+        "!package-lock.json",
+        "!.github/**/*"
     ],
     directories: {
         buildResources: "environments/assets",
