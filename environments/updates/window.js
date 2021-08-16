@@ -82,7 +82,7 @@ class Updater {
 
             const rsy = await this.updater.checkForUpdates().catch((e) => `ERROR: ${e.message || e}`);
             if (typeof rsy === "string" && rsy.startsWith("ERROR: ")) {
-                this.win.webContents.send("error", rsy.replace("ERROR: ", ""));
+                this.win.webContents.send("error", "Update Error!");
                 return resolve(true);
             }
         });
