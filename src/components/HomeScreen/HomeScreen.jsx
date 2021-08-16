@@ -4,6 +4,7 @@ import { faFolder, faClock } from "@fortawesome/free-solid-svg-icons";
 import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "../../assets/icon.png";
+import { useHistory } from "react-router-dom";
 
 export default function HomeScreen() {
     const getTime = () => {
@@ -21,13 +22,18 @@ export default function HomeScreen() {
     };
 
     const [workspaces, setWorkspaces] = useState([]);
+    const routeHistory = useHistory();
 
     useEffect(() => {
+        console.log("[DEBUG] Loading recent workspace data...");
         window.ScratchNative?.onceMessage("recentWorkspace", (ev, data) => {
             setWorkspaces(Array.isArray(data) ? data : []);
         });
-
         window.ScratchNative?.sendMessage("recentWorkspace");
+
+        window.ScratchNative?.onceMessage("openWorkspace", (ev, paths) => {
+            if (paths.length) routeHistory.push(`/workspace?name=${paths[0]}`);
+        });
     }, []);
 
     return (
@@ -71,14 +77,14 @@ export default function HomeScreen() {
                 </div>
                 <div className="mt-20">
                     <h1 className="text-5xl text-white">
-                        <FontAwesomeIcon icon={faClock} /> Recent Workspaces
+                        <FontAwesomeIcon icon={faClock} /> Recent Workspace
                     </h1>
                     <div className="mt-5">
                         {!workspaces.length ? (
                             <h1 className="text-white opacity-90 text-1xl">No recent workspaces detected!</h1>
                         ) : (
                             workspaces.map((m, i) => (
-                                <h1 className="text-blue-500 hover:text-blue-600 text-xl cursor-pointer" key={i}>
+                                <h1 className="text-blue-500 hover:text-blue-600 text-xl cursor-pointer" key={i} onClick={() => routeHistory.push(`/workspace?name=${m}`)}>
                                     {m}
                                 </h1>
                             ))

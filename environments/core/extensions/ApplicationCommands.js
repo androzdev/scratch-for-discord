@@ -2,11 +2,22 @@ const { ipcMain, BrowserWindow, dialog } = require("electron");
 const { readdir, readFile } = require("fs").promises;
 const { existsSync, statSync } = require("fs");
 const db = require("../storage/database");
+const isOnline = require("is-online");
+const WebServer = require("../server/WebServer");
+const ws = new WebServer();
 
 /**
  * @param {BrowserWindow} mainWindow
  */
 module.exports = (mainWindow) => {
+    ws.on("connected", (port) => {
+        mainWindow.webContents.send("connectFallbackServer", port);
+    });
+
+    ws.on("disconnected", () => {
+        mainWindow.webContents.send("disconnectFallbackServer", true);
+    });
+
     ipcMain.on("exitApp", () => {
         if (mainWindow.closable) mainWindow.close();
     });
@@ -39,10 +50,10 @@ module.exports = (mainWindow) => {
         if (response != null) {
             const lastData = db.get("recentWorkspace", []);
             lastData.unshift(...response);
-            db.set("recentWorkspace", lastData.slice(0, 5));
+            db.set("recentWorkspace", [...new Set(lastData)].slice(0, 5));
         }
 
-        event.reply("openWorkspace", response);
+        event.reply("openWorkspace", response || []);
     });
 
     ipcMain.on("saveAs", async (event) => {
@@ -86,5 +97,21 @@ module.exports = (mainWindow) => {
     ipcMain.on("settings", (event) => {
         const data = db.all();
         event.reply("settings", data);
+    });
+
+    ipcMain.on("connection", async (event, runFallbackServer = false) => {
+        const status = await isOnline().catch(() => false);
+        if (runFallbackServer && !status) await ws.connect();
+        event.reply("connection", status);
+    });
+
+    ipcMain.on("connectFallbackServer", async (event) => {
+        const result = await ws.connect(false);
+        event.reply("connectFallbackServer", result);
+    });
+
+    ipcMain.on("disconnectFallbackServer", async (event) => {
+        const result = await ws.disconnect(false);
+        event.reply("killFallbackServer", result);
     });
 };

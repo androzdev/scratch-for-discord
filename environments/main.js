@@ -1,9 +1,14 @@
-const { app, BrowserWindow, shell, dialog } = require("electron");
+const { app, BrowserWindow, shell, dialog, session } = require("electron");
 const isDev = require("electron-is-dev");
 const path = require("path");
 require("./core/storage/database");
 
 function createWindow() {
+    session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+        details.requestHeaders["User-Agent"] = "";
+        callback({ cancel: false, requestHeaders: details.requestHeaders });
+    });
+
     const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
