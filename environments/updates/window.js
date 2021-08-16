@@ -76,7 +76,7 @@ class Updater {
             });
 
             this.updater.on("error", (err) => {
-                this.win.webContents.send("error", err && err.message ? err.message : err);
+                this.win.webContents.send("error", "Update Error!");
                 resolve(true);
             });
 

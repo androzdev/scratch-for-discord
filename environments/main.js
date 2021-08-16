@@ -1,9 +1,11 @@
-const { app, BrowserWindow, shell, dialog, session, Menu } = require("electron");
+const { app, BrowserWindow, shell, dialog, session, Menu, Tray } = require("electron");
 const isDev = require("electron-is-dev");
 const path = require("path");
 const Updater = require("./updates/window");
 const updater = new Updater();
 require("./core/storage/database");
+
+let tray = null;
 
 async function createWindow() {
     updater.create();
@@ -36,6 +38,37 @@ async function createWindow() {
     const startUrl = isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "..", "build", "index.html")}`;
     mainWindow.loadURL(startUrl);
     if (isDev) mainWindow.webContents.openDevTools();
+
+    tray = new Tray(`${__dirname}/assets/icon.png`);
+    const contextMenu = Menu.buildFromTemplate([
+        {
+            label: "Discord Server",
+            type: "normal",
+            click: () => shell.openExternal("https://androz2091.fr/discord")
+        },
+        {
+            label: "GitHub",
+            type: "normal",
+            click: () => shell.openExternal("https://github.com/Androz2091/scratch-for-discord")
+        },
+        {
+            label: "Check for updates",
+            type: "normal",
+            click: () => {
+                app.relaunch();
+                app.quit();
+            }
+        },
+        {
+            label: "Quit App",
+            type: "normal",
+            click: () => {
+                mainWindow.destroy();
+            }
+        }
+    ]);
+    tray.setToolTip("Scratch For Discord");
+    tray.setContextMenu(contextMenu);
 
     mainWindow.once("ready-to-show", () => {
         mainWindow.show();
