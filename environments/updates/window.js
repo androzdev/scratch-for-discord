@@ -1,6 +1,6 @@
 const { BrowserWindow } = require("electron");
 const updater = require("electron-updater").autoUpdater;
-const isDev = process.env.NODE_ENV === "development";
+const isDev = require("electron-is-dev");
 
 class Updater {
     constructor() {
