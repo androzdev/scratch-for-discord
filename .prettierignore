@@ -2,4 +2,4 @@
 src/assets
 *.png
 environments/assets
-environments/core/server/s4d
+environments/core/server/sources/s4d

@@ -68,4 +68,8 @@ module.exports = (mainWindow) => {
         const result = await ws.disconnect(false);
         event.reply("killFallbackServer", result);
     });
+
+    ipcMain.on("toggleDevTools", (ev) => {
+        mainWindow.webContents.toggleDevTools();
+    });
 };

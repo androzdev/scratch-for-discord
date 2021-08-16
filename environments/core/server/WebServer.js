@@ -8,7 +8,7 @@ class WebServer extends EventEmitter {
         this.port = 8945;
 
         this.server = httpServer({
-            root: `${__dirname}/s4d`,
+            root: `${__dirname}/sources/s4d`,
             port: this.port
         });
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Card from "./Card";
-import { faFolder, faClock } from "@fortawesome/free-solid-svg-icons";
-import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faFolder, faClock, faCode, faCat } from "@fortawesome/free-solid-svg-icons";
+import { faDiscord, faPatreon, faPaypal } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useHistory } from "react-router-dom";
 import ICON from "../../assets/icon.base64.js";
@@ -40,7 +40,7 @@ export default function HomeScreen() {
         <div className="bg-gray-900 h-screen w-full">
             <div className="pt-5 px-20">
                 <h1 className="text-white text-7xl">Good {getTime()}!</h1>
-                <div className="mt-10 flex space-x-20 my-auto">
+                <div className="mt-5 flex space-x-20 my-auto">
                     <div className="grid grid-cols-2 gap-4 my-auto">
                         <Card
                             icon={faFolder}
@@ -50,28 +50,47 @@ export default function HomeScreen() {
                             }}
                         />
                         <Card
-                            icon={faDiscord}
-                            text="Join Discord"
+                            icon={faCat}
+                            text="Open Scratch"
                             onClick={() => {
-                                window.ScratchNative?.openURL(window.ScratchNative?.DISCORD_INVITE);
+                                routeHistory.push("/workspace");
                             }}
                         />
                         <Card
-                            icon={faGithub}
-                            text="Scratch For Discord"
+                            icon={faCode}
+                            text="Slash Commands"
                             onClick={() => {
-                                window.ScratchNative?.openURL("https://github.com/scratch-for-discord/scratch-for-discord-app");
+                                routeHistory.push("/slash");
+                            }}
+                        />
+                        <Card
+                            icon={faDiscord}
+                            text="Join Discord"
+                            onClick={() => {
+                                window.ScratchNative?.openURL(window.ScratchNative?.DISCORD_COMMUNITY);
                             }}
                         />
                     </div>
                     <div className="text-white border-l-2 border-gray-500 my-auto">
                         <div className="ml-5">
-                            <img src={ICON} alt="logo" className="h-32 w-32" draggable="false" />
-                            <h1 className="text-5xl">Scratch For Discord</h1>
+                            <img src={ICON} alt="logo" className="h-32 w-32 cursor-pointer hover:opacity-90" draggable="false" onClick={() => window.ScratchNative?.openURL(window.ScratchNative?.DISCORD_COMMUNITY)} />
+                            <h1 className="text-5xl opacity-90">Scratch For Discord</h1>
                             <p className="text-2xl opacity-70">v{window.ScratchNative?.version ?? "1.0.0"}</p>
                             <p className="text-2xl opacity-70">
                                 Build {window.ScratchNative?.info.platform}-{window.ScratchNative?.version ?? "1.0.0"}-{window.ScratchNative?.info.versions.node}
                             </p>
+                            <div className="my-5">
+                                <h1 className="text-3xl opacity-70">Donate:</h1>
+                                <div className="flex space-x-4 mt-2 mb-5">
+                                    <p className="text-5xl text-red-400 cursor-pointer opacity-100 hover:opacity-90" title="Patreon - Androz" onClick={() => window.ScratchNative?.openURL(window.ScratchNative?.donations.patreon)}>
+                                        <FontAwesomeIcon icon={faPatreon} />
+                                    </p>
+                                    <p className="text-5xl text-blue-400 cursor-pointer opacity-100 hover:opacity-90" title="Paypal - Andromeda" onClick={() => window.ScratchNative?.openURL(window.ScratchNative?.donations.paypal)}>
+                                        <FontAwesomeIcon icon={faPaypal} />
+                                    </p>
+                                </div>
+                                <p className="text-lg opacity-70">©️ Scratch For Discord - {new Date().getFullYear()}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -81,7 +100,7 @@ export default function HomeScreen() {
                     </h1>
                     <div className="mt-5">
                         {!workspaces.length ? (
-                            <h1 className="text-white opacity-90 text-1xl">No recent workspaces detected!</h1>
+                            <h1 className="text-white opacity-90 text-1xl">No recent workspace detected!</h1>
                         ) : (
                             workspaces.map((m, i) => (
                                 <div key={i}>

@@ -23,7 +23,7 @@ export default class Workspace extends Component {
             if (!port) return;
             this.setState({
                 ready: true,
-                source: `http://localhost:${port}/index.html`
+                source: `http://localhost:${port}/s4d/index.html`
             });
         });
 
