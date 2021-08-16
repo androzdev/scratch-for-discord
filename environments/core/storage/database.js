@@ -27,6 +27,10 @@ const store = new Store({
         rpcEnabled: {
             type: "boolean",
             default: true
+        },
+        scratchServer: {
+            type: "string",
+            default: "https://scratch-for-discord.netlify.app"
         }
     }
 });

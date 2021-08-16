@@ -94,6 +94,11 @@ module.exports = (mainWindow) => {
         db.set("rpcEnabled", mode);
     });
 
+    ipcMain.on("setServer", (event, url) => {
+        const matches = /^(http(s)?):\/\/(deploy-preview-(\d+)--)?scratch-for-discord.netlify.app(\/)?$/.test(url);
+        db.set("scratchServer", matches ? url : "https://scratch-for-discord.netlify.app");
+    });
+
     ipcMain.on("settings", (event) => {
         const data = db.all();
         event.reply("settings", data);

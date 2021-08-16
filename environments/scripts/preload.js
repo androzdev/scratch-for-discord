@@ -1,4 +1,5 @@
 const { contextBridge, ipcRenderer, shell } = require("electron");
+const db = require("../core/storage/database");
 const load = (id) => {
     try {
         return require(id);
@@ -31,7 +32,10 @@ const ScratchNative = {
         ipcRenderer.once(channel, ...data);
     },
     DISCORD_INVITE: "https://androz2091.fr/discord",
-    openURL: (url) => void shell.openExternal(url)
+    openURL: (url) => void shell.openExternal(url),
+    SCRATCH_SERVER() {
+        return db.get("scratchServer") || "https://scratch-for-discord.netlify.app";
+    }
 };
 
 contextBridge.exposeInMainWorld("ScratchNative", ScratchNative);
