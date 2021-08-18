@@ -1,6 +1,7 @@
 const { ipcMain, BrowserWindow, dialog } = require("electron");
 const { existsSync, statSync } = require("fs");
 const db = require("../storage/database");
+const S4D_REGEX = /^(http(s)?):\/\/((deploy-preview-(\d+)--)?scratch-for-discord.netlify.app|localhost:(\d+))(\/)?$/;
 
 /**
  * @param {BrowserWindow} mainWindow
@@ -51,7 +52,7 @@ module.exports = (mainWindow) => {
     });
 
     ipcMain.on("setServer", (event, url) => {
-        const matches = /^(http(s)?):\/\/(deploy-preview-(\d+)--)?scratch-for-discord.netlify.app(\/)?$/.test(url);
+        const matches = S4D_REGEX.test(url);
         db.set("scratchServer", matches ? url : "https://scratch-for-discord.netlify.app");
     });
 

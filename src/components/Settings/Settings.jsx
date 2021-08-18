@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip, faNetworkWired, faCog } from "@fortawesome/free-solid-svg-icons";
 
 export default function Settings() {
-    const URL_VERIFY_REGEX = /^(http(s)?):\/\/(deploy-preview-(\d+)--)?scratch-for-discord.netlify.app(\/)?$/;
+    const URL_VERIFY_REGEX = /^(http(s)?):\/\/((deploy-preview-(\d+)--)?scratch-for-discord.netlify.app|localhost:(\d+))(\/)?$/;
     const [settings, setSettings] = useState(null);
 
     function refresh() {
