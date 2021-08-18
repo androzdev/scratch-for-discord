@@ -75,6 +75,26 @@ export default function Settings() {
                                         }}
                                     />
                                 </div>
+
+                                <div className="space-y-3">
+                                    <label htmlFor="sidebarSettings" className="text-xl text-white opacity-90">
+                                        <FontAwesomeIcon icon={faPaperclip} /> Sidebar Position
+                                    </label>
+                                    <br />
+                                    <select
+                                        id="sidebarSettings"
+                                        defaultValue={get("sidebarIsRight") ? "right" : "left"}
+                                        className="form-select px-4 py-1 w-1/2 mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+                                        onChange={(e) => {
+                                            window.ScratchNative?.sendMessage("setSidebarRight", e.target.value === "right");
+                                            alert("Settings updated, you may need to reload the window!");
+                                            refresh();
+                                        }}
+                                    >
+                                        <option value="left">Left</option>
+                                        <option value="right">Right</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
