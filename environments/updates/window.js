@@ -1,4 +1,4 @@
-const { BrowserWindow } = require("electron");
+const { BrowserWindow, Notification } = require("electron");
 const updater = require("electron-updater").autoUpdater;
 const isDev = require("electron-is-dev");
 
@@ -54,16 +54,24 @@ class Updater {
             });
 
             this.updater.on("update-downloaded", () => {
+                this.win.setProgressBar(2);
                 this.win.webContents.send("update-downloaded");
                 this.updater.quitAndInstall();
                 resolve(false);
             });
 
             this.updater.on("checking-for-update", () => {
+                this.win.setProgressBar(2);
                 this.win.webContents.send("checking-for-update");
             });
 
             this.updater.on("update-available", (info) => {
+                new Notification({
+                    title: "Scratch For Discord",
+                    subtitle: "Scratch For Discord - Updater",
+                    body: "App update available!",
+                    icon: `${__dirname}/../assets/icon.png`
+                }).show();
                 this.win.webContents.send("new-update", info.version);
                 this.updater.downloadUpdate();
             });
@@ -73,6 +81,10 @@ class Updater {
                 const current = progress.transferred;
 
                 this.win.webContents.send("download-progress", { total, current });
+                let prg = current / total;
+                if (prg < 0) prg = 0;
+                if (prg > 1) prg = -1;
+                this.win.setProgressBar(prg);
             });
 
             this.updater.on("error", (err) => {
