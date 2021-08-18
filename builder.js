@@ -44,5 +44,11 @@ module.exports = {
         target: "dmg",
         category: "public.app-category.utilities"
     },
+    "protocols": {
+        name: "s4d-protocol",
+        schemes: [
+            "s4d"
+        ]
+    },
     generateUpdatesFilesForAllChannels: true
 };

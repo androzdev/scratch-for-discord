@@ -4,8 +4,19 @@ const path = require("path");
 const Updater = require("./updates/window");
 const updater = new Updater();
 require("./core/storage/database");
+const S4D_PROTOCOL = "s4d";
+let tray = null,
+    mainWindow;
 
-let tray = null;
+if (process.defaultApp) {
+    if (process.argv.length >= 2) {
+        app.setAsDefaultProtocolClient(S4D_PROTOCOL, process.execPath, [path.resolve(process.argv[1])]);
+    }
+} else {
+    app.setAsDefaultProtocolClient(S4D_PROTOCOL);
+}
+
+const gotTheLock = app.requestSingleInstanceLock();
 
 async function createWindow() {
     updater.create();
@@ -17,7 +28,7 @@ async function createWindow() {
         callback({ cancel: false, requestHeaders: details.requestHeaders });
     });
 
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         show: false,
@@ -103,12 +114,29 @@ async function createWindow() {
     });
 }
 
-app.on("ready", createWindow);
+if (!gotTheLock) {
+    app.quit();
+} else {
+    app.on("second-instance", (event, commandLine, workingDirectory) => {
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) mainWindow.restore();
+            mainWindow.focus();
+        }
+    });
 
-app.on("window-all-closed", function () {
-    if (process.platform !== "darwin") app.quit();
-});
+    app.whenReady().then(() => {
+        createWindow();
+    });
 
-app.on("activate", function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-});
+    app.on("open-url", (event, url) => {
+        console.log(`You arrived from: ${url}`);
+    });
+
+    app.on("window-all-closed", function () {
+        if (process.platform !== "darwin") app.quit();
+    });
+
+    app.on("activate", function () {
+        if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    });
+}
