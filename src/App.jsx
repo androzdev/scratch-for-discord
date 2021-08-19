@@ -1,6 +1,6 @@
 import { Component } from "react";
 import Loader from "./components/Loading/Loader";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import RouteBuilder from "./RouteBuilder";
 
 export default class App extends Component {
