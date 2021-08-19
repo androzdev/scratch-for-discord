@@ -11,6 +11,7 @@ export default function RouteBuilder() {
     const [settings, setSettings] = useState([]);
 
     useEffect(() => {
+        window.ScratchNative?.theme();
         window.ScratchNative?.onceMessage("settings", (ev, settingsData) => {
             setSettings(settingsData);
         });
@@ -19,7 +20,6 @@ export default function RouteBuilder() {
     }, []);
 
     const get = (k) => {
-        console.log(settings);
         return settings.find((x) => x.id === k)?.data;
     };
 
@@ -28,7 +28,7 @@ export default function RouteBuilder() {
             <div className="flex w-screen select-none">
                 {!get("sidebarIsRight") ? (
                     <>
-                        <Sidebar />
+                        <Sidebar borderRight={true} />
                         <Switch>
                             <Route exact path="/" component={HomeScreen} />
                             <Route path="/settings" component={Settings} />
@@ -48,7 +48,7 @@ export default function RouteBuilder() {
                             <Route path="/store" component={ExtensionStore} />
                             <Redirect to="/" />
                         </Switch>
-                        <Sidebar />
+                        <Sidebar borderRight={false} />
                     </>
                 )}
             </div>

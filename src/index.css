@@ -61,9 +61,14 @@ body {
     background-color: #161719;
 }
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 1px;
+    height: 1px;
 }
 ::-webkit-scrollbar-thumb {
     background: #6b6d70;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #161719;
+    color: #161719;
 }

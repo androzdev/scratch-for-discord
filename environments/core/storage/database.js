@@ -36,6 +36,10 @@ const store = new Store({
         sidebarIsRight: {
             type: "boolean",
             default: false
+        },
+        darkMode: {
+            type: "boolean",
+            default: true
         }
     }
 });

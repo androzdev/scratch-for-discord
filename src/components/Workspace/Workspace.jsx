@@ -40,7 +40,9 @@ export default class Workspace extends Component {
 
     render() {
         return (
-            <div className="bg-gray-900 h-screen w-full">{!this.state.ready ? <Loader loadingMessage={this.state.loadError ? "Error loading workspace!" : "Loading Scratch For Discord..."} /> : <iframe id="s4d-frame" src={this.state.source} frameBorder="0" className="w-full h-screen"></iframe>}</div>
+            <div className="dark:bg-gray-900 bg-white h-screen w-full">
+                {!this.state.ready ? <Loader loadingMessage={this.state.loadError ? "Error loading workspace!" : "Loading Scratch For Discord..."} /> : <iframe id="s4d-frame" src={this.state.source} frameBorder="0" className="w-full h-screen"></iframe>}
+            </div>
         );
     }
 }

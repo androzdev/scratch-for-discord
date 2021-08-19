@@ -25,6 +25,10 @@ export default class Workspace extends Component {
     }
 
     render() {
-        return <div className="bg-gray-900 h-screen w-full">{!this.state.ready ? <Loader loadingMessage={this.state.noNet ? "Waiting for network..." : "Loading Slash Commands GUI..."} /> : <iframe id="slash-frame" src={this.state.source} frameBorder="0" className="w-full h-screen"></iframe>}</div>;
+        return (
+            <div className="dark:bg-gray-900 bg-white h-screen w-full">
+                {!this.state.ready ? <Loader loadingMessage={this.state.noNet ? "Waiting for network..." : "Loading Slash Commands GUI..."} /> : <iframe id="slash-frame" src={this.state.source} frameBorder="0" className="w-full h-screen"></iframe>}
+            </div>
+        );
     }
 }

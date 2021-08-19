@@ -37,6 +37,17 @@ const ScratchNative = {
     SCRATCH_SERVER() {
         return db.get("scratchServer") || "https://scratch-for-discord.netlify.app";
     },
+    theme: () => {
+        const isDark = db.get("darkMode") || false;
+        if (isDark) {
+            document.documentElement.classList.add("dark");
+            document.body.style.backgroundColor = "#161719";
+        } else {
+            document.documentElement.classList.remove("dark");
+            document.body.style.backgroundColor = "#FFFFFF";
+        }
+        return isDark;
+    },
     donations: {
         patreon: "https://www.patreon.com/Androz2091",
         paypal: "https://paypal.me/devsnowflake"

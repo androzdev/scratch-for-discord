@@ -56,6 +56,11 @@ module.exports = (mainWindow) => {
         db.set("sidebarIsRight", enabled);
     });
 
+    ipcMain.on("setTheme", (event, isRight) => {
+        const enabled = Boolean(isRight);
+        db.set("darkMode", enabled);
+    });
+
     ipcMain.on("setServer", (event, url) => {
         const matches = S4D_REGEX.test(url);
         db.set("scratchServer", matches ? url : "https://scratch-for-discord.netlify.app");

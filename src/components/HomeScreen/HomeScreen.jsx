@@ -37,9 +37,9 @@ export default function HomeScreen() {
     }, []);
 
     return (
-        <div className="bg-gray-900 h-screen w-full">
+        <div className="dark:bg-gray-900 bg-white h-screen w-full">
             <div className="pt-5 px-20">
-                <h1 className="text-white text-7xl">Good {getTime()}!</h1>
+                <h1 className="dark:text-white text-gray-600 text-7xl">Good {getTime()}!</h1>
                 <div className="mt-5 flex space-x-20 my-auto">
                     <div className="grid grid-cols-2 gap-4 my-auto">
                         <Card
@@ -71,7 +71,7 @@ export default function HomeScreen() {
                             }}
                         />
                     </div>
-                    <div className="text-white border-l-2 border-gray-500 my-auto">
+                    <div className="dark:text-white text-gray-600 border-l-2 border-gray-500 my-auto">
                         <div className="ml-5">
                             <img src={ICON} alt="logo" className="h-32 w-32 cursor-pointer hover:opacity-90" draggable="false" onClick={() => window.ScratchNative?.openURL(window.ScratchNative?.DISCORD_COMMUNITY)} />
                             <h1 className="text-5xl opacity-90">Scratch For Discord</h1>
@@ -95,12 +95,12 @@ export default function HomeScreen() {
                     </div>
                 </div>
                 <div className="mt-20">
-                    <h1 className="text-5xl text-white">
+                    <h1 className="text-5xl dark:text-white text-gray-600">
                         <FontAwesomeIcon icon={faClock} /> Recent Workspace
                     </h1>
                     <div className="mt-5">
                         {!workspaces.length ? (
-                            <h1 className="text-white opacity-90 text-1xl">No recent workspace detected!</h1>
+                            <h1 className="dark:text-white text-gray-600 opacity-90 text-1xl">No recent workspace detected!</h1>
                         ) : (
                             workspaces.map((m, i) => (
                                 <div key={i} className="w-5">

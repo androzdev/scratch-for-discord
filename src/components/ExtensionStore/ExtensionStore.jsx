@@ -1,8 +1,8 @@
 export default function ExtensionStore() {
     return (
-        <div className="bg-gray-900 h-screen w-full overflow-scroll">
+        <div className="dark:bg-gray-900 bg-white h-screen w-full overflow-scroll">
             <div className="pt-5 px-20">
-                <h1 className="text-white text-7xl">Store</h1>
+                <h1 className="dark:text-white text-gray-500 text-7xl">Store</h1>
                 <div className="mt-10">
                     <div className="flex space-x-5 justify-center items-center">
                         <input type="text" name="query" id="searchQuery" className="form-input p-2 w-1/2 rounded-md bg-gray-50" />
