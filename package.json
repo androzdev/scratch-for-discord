@@ -11,7 +11,7 @@
     "electron": "electron .",
     "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "format": "prettier --write src/**/* public/**/* environments/**/*",
-    "app:publish": "npm run app:build --publish=always",
+    "app:publish": "rimraf build && npm run build && rimraf builds/app && electron-builder --config=builder.js --publish=always",
     "app:build": "rimraf build && npm run build && rimraf builds/app && electron-builder --config=builder.js"
   },
   "browserslist": {
