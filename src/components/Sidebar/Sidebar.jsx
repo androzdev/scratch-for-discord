@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faCog, faCode, faTerminal, faCubes, faRedo } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faCode, faGreaterThanEqual, faCubes, faRedo } from "@fortawesome/free-solid-svg-icons";
 import { useHistory, Link } from "react-router-dom";
 import ICON from "../../assets/icon.base64.js";
 
@@ -48,7 +48,7 @@ export default function Sidebar({ borderRight = true }) {
                 </div>
                 <div>
                     <p className="text-4xl opacity-90 hover:opacity-100 text-center mt-3 cursor-pointer" title="Developer Tools" onClick={() => window.ScratchNative?.sendMessage("toggleDevTools")}>
-                        <FontAwesomeIcon icon={faTerminal} />
+                        <FontAwesomeIcon icon={faGreaterThanEqual} />
                     </p>
                 </div>
                 <div>
