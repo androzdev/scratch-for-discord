@@ -131,10 +131,6 @@ if (!gotTheLock) {
         createWindow();
     });
 
-    app.on("open-url", (event, url) => {
-        console.log(`You arrived from: ${url}`);
-    });
-
     app.on("window-all-closed", function () {
         if (process.platform !== "darwin") app.quit();
     });
