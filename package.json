@@ -53,6 +53,8 @@
   },
   "dependencies": {
     "discord-rpc": "^4.0.1",
+    "discord.js": "^13.1.0",
+    "easy-json-database": "^1.5.0",
     "electron-is-dev": "^2.0.0",
     "electron-store": "^8.0.0",
     "electron-updater": "^4.3.9",

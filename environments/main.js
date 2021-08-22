@@ -8,6 +8,8 @@ const S4D_PROTOCOL = "s4d";
 let tray = null,
     mainWindow;
 
+app.commandLine.appendSwitch("disable-site-isolation-trials");
+
 if (process.defaultApp) {
     if (process.argv.length >= 2) {
         app.setAsDefaultProtocolClient(S4D_PROTOCOL, process.execPath, [path.resolve(process.argv[1])]);
@@ -38,7 +40,8 @@ async function createWindow() {
         webPreferences: {
             nodeIntegration: false,
             preload: `${__dirname}/scripts/preload.js`,
-            contextIsolation: true
+            contextIsolation: true,
+            webSecurity: false
         },
         icon: `file://${path.join(__dirname, "/assets/icon.png")}`
     });
