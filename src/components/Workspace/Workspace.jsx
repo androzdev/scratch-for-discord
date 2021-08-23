@@ -6,7 +6,7 @@ export default class Workspace extends Component {
         super(...props);
 
         this.state = {
-            source: window.ScratchNative?.SCRATCH_SERVER() || "https://scratch-for-discord.netlify.app",
+            source: "http://localhost:8080" || window.ScratchNative?.SCRATCH_SERVER() || "https://scratch-for-discord.netlify.app",
             ready: false,
             loadError: false
         };

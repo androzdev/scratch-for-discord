@@ -27,6 +27,10 @@ module.exports = (mainWindow) => {
                 ev.reply("clientShardDisconnect");
             });
 
+            res.client.on("debug", (msg) => {
+                ev.reply("clientDebug", msg);
+            });
+
             ev.reply("executeCode", {
                 codeError: null,
                 s4d: {
