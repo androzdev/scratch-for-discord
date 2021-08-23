@@ -1,41 +1,50 @@
 const { ipcMain, app } = require("electron");
 const S4D_NATIVE_GET_PATH = app.getAppPath();
+const __E_IS_DEV = require("electron-is-dev");
 let res = {};
 
 /**
  * @param {BrowserWindow} mainWindow
  */
 module.exports = (mainWindow) => {
+    ipcMain.on("destroyClient", async (ev) => {
+        try {
+            res.client.destroy();
+        } catch {}
+    });
+
     ipcMain.on("executeCode", async (ev, code) => {
         try {
-            console.log(code);
             res = await eval(code);
-            const client = {
-                ...res.client.toJSON(),
-                readyTimestamp: res.client.readyTimestamp
-            };
-            console.log(client);
             res.client.once("ready", (cl) => {
                 ev.reply("clientReady", {
-                    ...cl.toJSON(),
+                    ...cl.user?.toJSON(),
                     readyTimestamp: cl.readyTimestamp
-                })
+                });
             });
-            res.client.once("shardDisconnect", (cl) => {
+
+            res.client.once("shardDisconnect", () => {
                 ev.reply("clientShardDisconnect");
             });
+
             ev.reply("executeCode", {
                 codeError: null,
                 s4d: {
+                    devMode: __E_IS_DEV,
                     tokenInvalid: res.tokenInvalid,
-                    client
+                    tokenError: res.tokenError,
+                    reply: res.reply,
+                    joiningMember: res.joiningMember,
+                    client: null
                 }
             });
-        } catch(e) {
+        } catch (e) {
             ev.reply("executeCode", {
-                codeError: e.stack,
-                s4d: res || {}
+                codeError: e.message,
+                s4d: res || {
+                    devMode: __E_IS_DEV
+                }
             });
         }
-    })
+    });
 };
