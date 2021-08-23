@@ -31,6 +31,14 @@ module.exports = (mainWindow) => {
                 ev.reply("clientDebug", msg);
             });
 
+            res.client.on("warn", (msg) => {
+                ev.reply("clientWarn", msg);
+            });
+
+            res.client.on("error", (msg) => {
+                ev.reply("clientError", msg);
+            });
+
             ev.reply("executeCode", {
                 codeError: null,
                 s4d: {
