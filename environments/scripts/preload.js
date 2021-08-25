@@ -31,6 +31,12 @@ const ScratchNative = {
     onceMessage: (channel, ...data) => {
         ipcRenderer.once(channel, ...data);
     },
+    unregisterEvents: (events) => {
+        if (!Array.isArray(events)) return;
+        for (const event of events) {
+            ipcRenderer.removeAllListeners(event);
+        }
+    },
     DISCORD_INVITE: "https://androz2091.fr/discord",
     DISCORD_COMMUNITY: "https://discord.gg/QemqGz63ju",
     openURL: (url) => void shell.openExternal(url),
@@ -56,7 +62,7 @@ const ScratchNative = {
 
 contextBridge.exposeInMainWorld("ScratchNative", ScratchNative);
 
-document.addEventListener("keyup", (ev) => {
+document.addEventListener("keydown", (ev) => {
     if (ev.ctrlKey && ev.key.toLowerCase() === "r") {
         ev.preventDefault();
         window.location.reload();
