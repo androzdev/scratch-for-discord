@@ -8,6 +8,7 @@ export default function Settings() {
     const [settings, setSettings] = useState(null);
 
     function refresh() {
+        window.ScratchNative?.sendMessage("setActivity", "on settings");
         console.log("[DEBUG] Loading settings...");
         const scratch = window.ScratchNative;
 
@@ -41,6 +42,8 @@ export default function Settings() {
                                         className="form-select px-4 py-1 w-1/2 mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 dark:focus:bg-white focus:ring-0"
                                         onChange={(e) => {
                                             window.ScratchNative?.sendMessage("toggleRPC", e.target.value === "on");
+                                            if (e.target.value !== "on") window.ScratchNative?.sendMessage("destroyRPC");
+                                            else if (e.target.value === "on") window.ScratchNative?.sendMessage("reconnectRPC");
                                             refresh();
                                         }}
                                     >

@@ -17,7 +17,7 @@ class RichPresence {
 
     login() {
         console.log("Enabled?", this.enabled());
-        if (this.enabled()) return Promise.resolve(false);
+        if (!this.enabled()) return Promise.resolve(false);
 
         return new Promise((resolve) => {
             this.client.on("ready", () => {
@@ -29,7 +29,10 @@ class RichPresence {
                 .login({
                     clientId: this.id
                 })
-                .catch(() => resolve(false));
+                .catch((e) => {
+                    console.error(e);
+                    resolve(false);
+                });
         });
     }
 
@@ -37,21 +40,21 @@ class RichPresence {
         this.client
             .setActivity({
                 details: title || "Scratch For Discord",
-                timestamps: {
-                    start: this.startedAt
-                },
-                assets: {
-                    large_image: "large",
-                    large_text: `Scratch For Discord - v${packageMeta.version}`
-                },
+                startTimestamp: this.startedAt,
                 buttons: [
                     {
                         label: "Download",
                         url: "https://androz2091.github.io/scratch-for-discord/download/index.html"
                     }
-                ]
+                ],
+                largeImageKey: "large",
+                largeImageText: `Scratch For Discord - v${packageMeta.version}`,
+                smallImageKey: "small",
+                smallImageText: "Scratch For Discord"
             })
-            .catch(() => {});
+            .catch((e) => {
+                console.error(e);
+            });
     }
 
     logout() {
@@ -59,7 +62,9 @@ class RichPresence {
             () => {
                 this.ready = false;
             },
-            () => {}
+            (e) => {
+                console.error(e);
+            }
         );
     }
 }

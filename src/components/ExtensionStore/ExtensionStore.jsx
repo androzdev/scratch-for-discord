@@ -1,4 +1,10 @@
+import { useEffect } from "react";
+
 export default function ExtensionStore() {
+    useEffect(() => {
+        window.ScratchNative?.sendMessage("setActivity", "on S4D Store");
+    }, []);
+
     return (
         <div className="dark:bg-gray-900 bg-white h-screen w-full overflow-scroll">
             <div className="pt-5 px-20">

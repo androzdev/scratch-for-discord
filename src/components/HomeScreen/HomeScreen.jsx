@@ -25,6 +25,7 @@ export default function HomeScreen() {
     const routeHistory = useHistory();
 
     useEffect(() => {
+        window.ScratchNative?.sendMessage("setActivity", "Scratch For Discord");
         console.log("[DEBUG] Loading recent workspace data...");
         window.ScratchNative?.onceMessage("recentWorkspace", (ev, data) => {
             setWorkspaces(Array.isArray(data) ? data : []);

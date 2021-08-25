@@ -6,16 +6,17 @@ const RPC = require("../rpc/RPC");
  */
 module.exports = (mainWindow) => {
     ipcMain.on("setActivity", async (ev, name) => {
-        console.log("Activity Call");
         if (!RPC.ready) await RPC.login();
-        RPC.setActivity(name);
+        if (RPC.ready) RPC.setActivity(name);
     });
 
     ipcMain.on("destroyRPC", (ev) => {
-        RPC.logout();
+        if (RPC.ready) RPC.logout();
     });
 
-    ipcMain.on("reconnectRPC", (ev) => {
-        RPC.login();
+    ipcMain.on("reconnectRPC", async (ev) => {
+        if (RPC.ready) return;
+        const success = await RPC.login();
+        if (success) RPC.setActivity();
     });
 };

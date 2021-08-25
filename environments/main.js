@@ -3,6 +3,7 @@ const isDev = require("electron-is-dev");
 const path = require("path");
 const Updater = require("./updates/window");
 const updater = new Updater();
+const rpc = require("./core/rpc/RPC");
 require("./core/storage/database");
 const S4D_PROTOCOL = "s4d";
 let tray = null,
@@ -90,8 +91,7 @@ async function createWindow() {
         if (mainWindow.maximizable) mainWindow.maximize();
         // load extensions
         new (require("./core/ExtensionsLoader"))(mainWindow);
-        const rpc = require("./core/rpc/RPC");
-        rpc.login().then(() => rpc.setActivity());
+        rpc.login().then((success) => (success ? rpc.setActivity() : console.log("Could not start RPC")));
     });
 
     mainWindow.webContents.setWindowOpenHandler((handler) => {

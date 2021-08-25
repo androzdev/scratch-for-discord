@@ -19,6 +19,7 @@ export default class Workspace extends Component {
 
     componentDidMount() {
         console.log("[DEBUG] Loading workspace...");
+        window.ScratchNative?.sendMessage("setActivity", "on S4D workspace");
         window.ScratchNative?.onceMessage("connectFallbackServer", (ev, port) => {
             if (!port) return;
             this.setState({

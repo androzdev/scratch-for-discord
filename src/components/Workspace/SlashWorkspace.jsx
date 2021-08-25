@@ -14,6 +14,7 @@ export default class Workspace extends Component {
 
     componentDidMount() {
         console.log("[DEBUG] Loading workspace...");
+        window.ScratchNative?.sendMessage("setActivity", "on Slash Commands GUI");
         window.ScratchNative?.onceMessage("connection", (ev, status) => {
             this.setState({
                 ready: status,
