@@ -1,5 +1,5 @@
 import Loader from "../Loading/Loader";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip, faNetworkWired, faPaintRoller, faBars } from "@fortawesome/free-solid-svg-icons";
 
@@ -22,6 +22,7 @@ export default function Settings() {
     useEffect(refresh, []);
 
     const get = (k) => settings.find((x) => x.id === k)?.data;
+    const scratchServerElm = useRef(null);
 
     return (
         <>
@@ -57,6 +58,7 @@ export default function Settings() {
                                         <FontAwesomeIcon icon={faNetworkWired} /> Scratch Server
                                     </label>
                                     <input
+                                        ref={scratchServerElm}
                                         type="url"
                                         id="scratchSourceUrl"
                                         autoComplete="false"
@@ -120,6 +122,9 @@ export default function Settings() {
                                         className="bg-blurple-500 hover:bg-blurple-600 text-white hover:text-gray-50 text-xl p-2 rounded-md"
                                         onClick={() => {
                                             window.ScratchNative?.theme();
+                                            const content = scratchServerElm.current?.value;
+                                            if (content && !URL_VERIFY_REGEX.test(content)) return alert("Unsupported server!");
+                                            if (content) window.ScratchNative?.sendMessage("setServer", content);
                                             window.location.reload();
                                         }}
                                     >
