@@ -35,6 +35,7 @@
     "@tailwindcss/forms": "^0.3.3",
     "@types/discord-rpc": "^4.0.0",
     "@types/http-server": "^0.12.1",
+    "@types/lodash.chunk": "^4.2.6",
     "@types/react": "^17.0.17",
     "@types/react-router-dom": "^5.1.8",
     "autoprefixer": "^9",
@@ -60,7 +61,9 @@
     "electron-store": "^8.0.0",
     "electron-updater": "^4.3.9",
     "http-server": "^13.0.0",
-    "is-online": "^9.0.1"
+    "is-online": "^9.0.1",
+    "lodash.chunk": "^4.2.0",
+    "marked": "^3.0.2"
   },
   "license": "MIT",
   "repository": {
