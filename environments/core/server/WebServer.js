@@ -6,9 +6,10 @@ class WebServer extends EventEmitter {
         super();
 
         this.port = 8945;
+        this.ready = false;
 
         this.server = httpServer({
-            root: `${__dirname}/sources/s4d`,
+            root: `${__dirname}/sources`,
             port: this.port
         });
 
@@ -18,10 +19,11 @@ class WebServer extends EventEmitter {
 
     connect(emit = true) {
         return new Promise((resolve) => {
-            if (this.server.listening) return resolve(false);
+            if (this.ready) return resolve(false);
 
             this.server.listen(this.port, () => {
                 if (emit) this.emit("connected", this.port);
+                this.ready = true;
                 resolve(this.port);
             });
         });
@@ -29,8 +31,9 @@ class WebServer extends EventEmitter {
 
     disconnect(emit = true) {
         return new Promise((resolve) => {
-            if (!this.server.listening) return resolve(false);
+            if (!this.ready) return resolve(false);
             this.server.close(() => {
+                this.ready = false;
                 if (emit) this.emit("closed");
                 resolve(true);
             });
