@@ -38,7 +38,7 @@ export default function ExtensionStore() {
                 <h1 className="dark:text-white text-gray-500 text-7xl">Store</h1>
                 <div className="mt-10">
                     <div className="flex space-x-5 justify-center items-center">
-                        <input onKeyDown={e => e.keyCode === 13 ? handleSearch() : null} type="text" ref={searchbox} className="form-input p-2 w-1/2 rounded-md bg-gray-50" />
+                        <input onKeyDown={(e) => (e.keyCode === 13 ? handleSearch() : null)} type="text" ref={searchbox} className="form-input p-2 w-1/2 rounded-md bg-gray-50" />
                         <p onClick={handleSearch} className="rounded-md cursor-pointer text-white text-xl my-auto mx-auto bg-blurple-500 py-2 px-3 hover:bg-blurple-600">
                             Search
                         </p>
