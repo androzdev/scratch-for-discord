@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import PulseCard from "../Loading/PulseCard";
 import Chunk from "lodash.chunk";
 import Card from "../Card/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import Search from "../../utils/Search";
 
 export default function ExtensionStore() {
+    const searchbox = useRef(null);
     const [storeData, setStoreData] = useState(null);
     const [currentPage, setCurrentPage] = useState([]);
 
@@ -13,7 +15,6 @@ export default function ExtensionStore() {
         window.ScratchNative?.sendMessage("setActivity", "on S4D Store");
         window.ScratchNative?.onceMessage("fetchStore", (ev, data) => {
             const d = Chunk(data, 12);
-
             setStoreData(d);
             setCurrentPage(d[0]);
         });
@@ -25,14 +26,22 @@ export default function ExtensionStore() {
         setCurrentPage(storeData[currentPageIndex] || storeData[back ? storeData.length - 1 : 0]);
     }
 
+    function handleSearch() {
+        const query = searchbox.current?.value || "";
+        if (!query) return;
+        setCurrentPage(Search(query, storeData.flat()));
+    }
+
     return (
         <div className="dark:bg-gray-900 bg-white h-screen w-full overflow-scroll">
             <div className="pt-5 px-20">
                 <h1 className="dark:text-white text-gray-500 text-7xl">Store</h1>
                 <div className="mt-10">
                     <div className="flex space-x-5 justify-center items-center">
-                        <input type="text" name="query" id="searchQuery" className="form-input p-2 w-1/2 rounded-md bg-gray-50" />
-                        <p className="rounded-md cursor-pointer text-white text-xl my-auto mx-auto bg-blurple-500 py-2 px-3 hover:bg-blurple-600">Search</p>
+                        <input type="text" ref={searchbox} className="form-input p-2 w-1/2 rounded-md bg-gray-50" />
+                        <p onClick={handleSearch} className="rounded-md cursor-pointer text-white text-xl my-auto mx-auto bg-blurple-500 py-2 px-3 hover:bg-blurple-600">
+                            Search
+                        </p>
                     </div>
                     {Array.isArray(storeData) ? (
                         <div class="mt-10 flex items-center justify-center space-x-3 dark:text-white text-black w-full">
@@ -40,7 +49,7 @@ export default function ExtensionStore() {
                                 <FontAwesomeIcon icon={faArrowLeft} />
                             </p>
                             <h1 className="text-center text-xl opacity-90">
-                                Page {storeData.indexOf(currentPage) + 1 || -1} of {storeData.length}
+                                Page {storeData.indexOf(currentPage) + 1 || 0} of {storeData.length}
                             </h1>
                             <p onClick={() => paginate(false)} className="text-2xl opacity-80 cursor-pointer hover:opacity-100">
                                 <FontAwesomeIcon icon={faArrowRight} />

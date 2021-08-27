@@ -60,6 +60,7 @@
     "electron-is-dev": "^2.0.0",
     "electron-store": "^8.0.0",
     "electron-updater": "^4.3.9",
+    "fuse.js": "^6.4.6",
     "http-server": "^13.0.0",
     "is-online": "^9.0.1",
     "lodash.chunk": "^4.2.0",
