@@ -4,7 +4,6 @@ const isOnline = require("is-online");
 const WebServer = require("../server/WebServer");
 const ws = new WebServer();
 const fetch = require("node-fetch").default;
-let lastBlock = null;
 
 /**
  * @param {BrowserWindow} mainWindow
@@ -76,11 +75,9 @@ module.exports = (mainWindow) => {
     });
 
     ipcMain.on("fetchStore", (ev) => {
-        if (lastBlock) return ev.reply("fetchStore", lastBlock);
         fetch("https://raw.githubusercontent.com/scratch-for-discord/blocks/main/metadata.json")
             .then((res) => res.json())
             .then((data) => {
-                lastBlock = data;
                 ev.reply("fetchStore", data);
             })
             .catch(() => {
