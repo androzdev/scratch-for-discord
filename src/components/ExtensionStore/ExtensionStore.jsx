@@ -20,9 +20,6 @@ export default function ExtensionStore() {
         window.ScratchNative?.sendMessage("fetchStore");
     }, []);
 
-    console.log("Store Data\n", storeData);
-    console.log("Current Data\n", currentPage);
-
     function paginate(back = false) {
         const currentPageIndex = back ? storeData.indexOf(currentPage) - 1 : storeData.indexOf(currentPage) + 1;
         setCurrentPage(storeData[currentPageIndex] || storeData[back ? storeData.length - 1 : 0]);
