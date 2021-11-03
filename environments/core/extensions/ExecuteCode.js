@@ -16,7 +16,8 @@ module.exports = (mainWindow) => {
     ipcMain.on("executeCode", async (ev, code) => {
         try {
             res = await eval(code);
-            res.client.once("ready", (cl) => {
+            res.client.once("ready", async (cl) => {
+                await cl.fetch(true).catch(() => {});
                 ev.reply("clientReady", {
                     ...cl.user?.toJSON(),
                     readyTimestamp: cl.readyTimestamp
