@@ -65,7 +65,7 @@
     "http-server": "^13.0.2",
     "is-online": "^9.0.1",
     "lodash.chunk": "^4.2.0",
-    "marked": "^3.0.7"
+    "marked": "^4.0.10"
   },
   "license": "MIT",
   "repository": {
