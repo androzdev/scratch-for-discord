@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Scratch For Discord - Updater</title>
+
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src https://fonts.gstatic.com/; img-src *;" />
+
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+    </head>
+    <body>
+        <main>
+            <img src="../assets/icon.png" class="center" height="100px" width="100px" draggable="false" />
+            <h1 class="special">Scratch For Discord</h1>
+
+            <div>Version: <b id="currentVersion">0.0.0</b></div>
+
+            <p class="dull" id="status" style="margin-top: 0.4rem; font-size: 0.9rem">Checking for updates...</p>
+        </main>
+    </body>
+
+    <style>
+        :root {
+            --light: white;
+            --dark: #18181b;
+            --special: #ffc61b;
+            --gray: #99aab5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body,
+        main {
+            height: 100%;
+            width: 100%;
+        }
+
+        progress {
+            height: 7px;
+            background-color: var(--gray);
+            appearance: none;
+            color: var(--special) !important;
+            border-radius: 10px;
+        }
+
+        progress::-webkit-progress-bar {
+            height: 7px;
+            background-color: var(--gray);
+            border-radius: 10px;
+        }
+
+        progress::-moz-progress-bar {
+            height: 7px;
+            -moz-appearance: none;
+            background-color: var(--special) !important;
+            border-radius: 10px;
+        }
+
+        progress::-webkit-progress-value {
+            height: 7px;
+            -webkit-appearance: none;
+            background-color: var(--special) !important;
+            border-radius: 10px;
+        }
+
+        main {
+            -webkit-app-region: drag;
+            font-family: "Poppins", sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        main > * {
+            max-width: 80%;
+        }
+
+        .special {
+            color: var(--special);
+        }
+
+        .dull {
+            opacity: 0.6;
+        }
+
+        .dull progress {
+            opacity: 1;
+        }
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</html>

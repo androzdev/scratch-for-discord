@@ -1,0 +1,74 @@
+@font-face {
+    font-family: Ubuntu;
+    src: url(assets/fonts/Ubuntu-Bold.ttf) format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: Ubuntu;
+    src: url(assets/fonts/Ubuntu-BoldItalic.ttf) format("truetype");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: Ubuntu;
+    src: url(assets/fonts/Ubuntu-Italic.ttf) format("truetype");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: Ubuntu;
+    src: url(assets/fonts/Ubuntu-Light.ttf) format("truetype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: Ubuntu;
+    src: url(assets/fonts/Ubuntu-LightItalic.ttf) format("truetype");
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: Ubuntu;
+    src: url(assets/fonts/Ubuntu-Medium.ttf) format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: Ubuntu;
+    src: url(assets/fonts/Ubuntu-MediumItalic.ttf) format("truetype");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: Ubuntu;
+    src: url(assets/fonts/Ubuntu-Regular.ttf) format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+    background-color: #161719;
+}
+::-webkit-scrollbar {
+    width: 1px;
+    height: 1px;
+}
+::-webkit-scrollbar-thumb {
+    background: #6b6d70;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #161719;
+    color: #161719;
+}

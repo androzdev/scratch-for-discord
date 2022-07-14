@@ -1,0 +1,62 @@
+name: action-publish
+
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - master
+
+jobs:
+    windows:
+        runs-on: windows-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: "16.6.2"
+
+            - name: Install dependencies
+              run: yarn --dev
+
+            - name: Publish
+              run: yarn app:publish --x64 --ia32 -w
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    linux:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: "16.6.2"
+
+            - name: Install dependencies
+              run: yarn --dev
+
+            - name: Publish
+              run: yarn app:publish --x64 --ia32 -l
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    mac:
+        runs-on: macos-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: "16.6.2"
+
+            - name: Install dependencies
+              run: yarn --dev
+
+            - name: Publish
+              run: yarn app:publish --x64 -m
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
