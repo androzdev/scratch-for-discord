@@ -1,0 +1,9 @@
+{
+    "name": "scratch-for-discord-desktop",
+    "productName": "Scratch For Discord",
+    "productId": "com.scratchfordiscord.app",
+    "copyrightOwner": "DevAndromeda",
+    "protocols": ["s4d", "scratch-for-discord"],
+    "description": "Desktop application for Scratch For Discord",
+    "license": "https://github.com/DevAndromeda/scratch-for-discord/blob/main/LICENSE.md"
+}

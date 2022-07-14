@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "useDefineForClassFields": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "esModuleInterop": false,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "CommonJS",
+        "pretty": true,
+        "removeComments": true,
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "baseUrl": ".",
+        "outDir": "./app",
+        "declaration": false,
+        "paths": {
+            "/*": [
+                "./*"
+            ],
+            "@app/*": [
+                "./src/main/*"
+            ]
+        },
+    },
+    "include": [
+        "src/main"
+    ]
+}

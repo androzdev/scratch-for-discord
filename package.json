@@ -1,0 +1,52 @@
+{
+  "name": "scratch-for-discord",
+  "version": "3.0.0-alpha.0",
+  "description": "Scratch for Discord desktop app",
+  "main": "./app/app.js",
+  "private": true,
+  "scripts": {
+    "dev": "run-p dev:*",
+    "dev:electron": "rimraf app && tsc --p tsconfig.node.json && electron .",
+    "dev:ui": "vite",
+    "build": "run-s build:*",
+    "build:ui": "vite build --base=./",
+    "build:electron": "rimraf app && tsc --p tsconfig.node.json && electron-builder --config=build.js",
+    "deploy": "npm run build:electron --publish=always",
+    "start": "electron .",
+    "format": "prettier --write ./*.{ts,js} ./src/**/*.{js,ts,jsx,tsx,html}"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevAndromeda/scratch-for-discord.git"
+  },
+  "keywords": [
+    "scratch",
+    "discord",
+    "scratch-for-discord",
+    "s4d"
+  ],
+  "author": "DevAndromeda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DevAndromeda/scratch-for-discord/issues"
+  },
+  "homepage": "https://github.com/DevAndromeda/scratch-for-discord#readme",
+  "devDependencies": {
+    "@types/node": "^18.0.4",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.0.0",
+    "autoprefixer": "^10.4.7",
+    "electron": "^19.0.8",
+    "electron-builder": "^23.1.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.14",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^3.0.2",
+    "tailwindcss": "^3.1.6",
+    "typescript": "^4.7.4",
+    "vite": "^3.0.0"
+  }
+}

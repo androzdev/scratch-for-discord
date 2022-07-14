@@ -1,0 +1,12 @@
+# electron builds
+app/
+builds/
+
+# ui build
+dist/
+
+# node
+node_modules/
+
+# env
+*.env
